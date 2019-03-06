@@ -12,17 +12,15 @@ package MyProperty_Package;
 public class HomePage extends javax.swing.JFrame {
 
     /**
-     * Creates new form HomePage
+     * Creates new form Home
      */
-    
-
     public HomePage() {
         initComponents();
-        
     }
 
-    public HomePage(User user) {
+    HomePage(User user) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
         initComponents();
         
         try{
@@ -31,7 +29,6 @@ public class HomePage extends javax.swing.JFrame {
         } catch(Exception e){
             System.out.println(e);
         }
-        
     }
 
     /**
@@ -43,19 +40,20 @@ public class HomePage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         LogoLabel = new javax.swing.JLabel();
         LoginButton = new javax.swing.JButton();
         SearchLabel = new javax.swing.JLabel();
         BGLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1000, 600));
-        getContentPane().setLayout(null);
+
+        jPanel1.setLayout(null);
 
         LogoLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         LogoLabel.setForeground(new java.awt.Color(255, 255, 255));
         LogoLabel.setText("My Property");
-        getContentPane().add(LogoLabel);
+        jPanel1.add(LogoLabel);
         LogoLabel.setBounds(20, 40, 150, 40);
 
         LoginButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -67,29 +65,40 @@ public class HomePage extends javax.swing.JFrame {
                 LoginButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(LoginButton);
+        jPanel1.add(LoginButton);
         LoginButton.setBounds(770, 50, 160, 50);
 
         SearchLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         SearchLabel.setForeground(new java.awt.Color(255, 255, 255));
         SearchLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         SearchLabel.setText("Search properties for rent and sell in Bangladesh");
-        getContentPane().add(SearchLabel);
+        jPanel1.add(SearchLabel);
         SearchLabel.setBounds(300, 150, 400, 40);
 
         BGLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyProperty_Package/HomePicture.png"))); // NOI18N
         BGLabel.setText("di");
-        getContentPane().add(BGLabel);
+        jPanel1.add(BGLabel);
         BGLabel.setBounds(-510, 0, 1932, 1080);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
-        
+
         new LoginPage().setVisible(true);
         this.setVisible(false);
-        
+
     }//GEN-LAST:event_LoginButtonActionPerformed
 
     /**
@@ -118,13 +127,12 @@ public class HomePage extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
                 new HomePage().setVisible(true);
-                
             }
         });
     }
@@ -134,5 +142,6 @@ public class HomePage extends javax.swing.JFrame {
     private javax.swing.JButton LoginButton;
     private javax.swing.JLabel LogoLabel;
     private javax.swing.JLabel SearchLabel;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

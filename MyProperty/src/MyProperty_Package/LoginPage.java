@@ -18,13 +18,12 @@ import javax.swing.JOptionPane;
 public class LoginPage extends javax.swing.JFrame {
 
     /**
-     * Creates new form LoginPage
+     * Creates new form Login
      */
     public LoginPage() {
         initComponents();
         EmailPhoneField.setBackground(new Color(0,0,0,0));
         PasswordField.setBackground(new Color(0,0,0,0));
-        
     }
 
     /**
@@ -36,6 +35,7 @@ public class LoginPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         SignUpButton = new javax.swing.JButton();
         LoginLabel = new javax.swing.JLabel();
         AsLabel = new javax.swing.JLabel();
@@ -51,27 +51,26 @@ public class LoginPage extends javax.swing.JFrame {
         BGLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1000, 600));
-        setSize(new java.awt.Dimension(1000, 600));
-        getContentPane().setLayout(null);
+
+        jPanel1.setLayout(null);
 
         SignUpButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         SignUpButton.setText("Create a new account");
-        getContentPane().add(SignUpButton);
+        jPanel1.add(SignUpButton);
         SignUpButton.setBounds(740, 40, 230, 40);
 
         LoginLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         LoginLabel.setForeground(new java.awt.Color(255, 255, 255));
         LoginLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LoginLabel.setText("Log In");
-        getContentPane().add(LoginLabel);
+        jPanel1.add(LoginLabel);
         LoginLabel.setBounds(425, 80, 150, 60);
 
         AsLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         AsLabel.setForeground(new java.awt.Color(255, 255, 255));
         AsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         AsLabel.setText("As");
-        getContentPane().add(AsLabel);
+        jPanel1.add(AsLabel);
         AsLabel.setBounds(470, 150, 60, 40);
 
         LogAsComboBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -81,19 +80,19 @@ public class LoginPage extends javax.swing.JFrame {
                 LogAsComboBoxActionPerformed(evt);
             }
         });
-        getContentPane().add(LogAsComboBox);
+        jPanel1.add(LogAsComboBox);
         LogAsComboBox.setBounds(450, 190, 100, 30);
 
         EmailLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         EmailLabel.setForeground(new java.awt.Color(255, 255, 255));
         EmailLabel.setText("Email / Phone");
-        getContentPane().add(EmailLabel);
+        jPanel1.add(EmailLabel);
         EmailLabel.setBounds(320, 280, 120, 30);
 
         PasswordLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         PasswordLabel.setForeground(new java.awt.Color(255, 255, 255));
         PasswordLabel.setText("Password");
-        getContentPane().add(PasswordLabel);
+        jPanel1.add(PasswordLabel);
         PasswordLabel.setBounds(320, 350, 120, 30);
 
         EmailPhoneField.setBackground(new java.awt.Color(102, 102, 102));
@@ -104,13 +103,13 @@ public class LoginPage extends javax.swing.JFrame {
                 EmailPhoneFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(EmailPhoneField);
+        jPanel1.add(EmailPhoneField);
         EmailPhoneField.setBounds(450, 280, 230, 30);
 
         PasswordField.setBackground(new java.awt.Color(102, 102, 102));
         PasswordField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         PasswordField.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(PasswordField);
+        jPanel1.add(PasswordField);
         PasswordField.setBounds(450, 350, 230, 30);
 
         javax.swing.GroupLayout emailPanelLayout = new javax.swing.GroupLayout(emailPanel);
@@ -124,7 +123,7 @@ public class LoginPage extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        getContentPane().add(emailPanel);
+        jPanel1.add(emailPanel);
         emailPanel.setBounds(450, 310, 230, 2);
 
         javax.swing.GroupLayout passwordPanelLayout = new javax.swing.GroupLayout(passwordPanel);
@@ -138,7 +137,7 @@ public class LoginPage extends javax.swing.JFrame {
             .addGap(0, 2, Short.MAX_VALUE)
         );
 
-        getContentPane().add(passwordPanel);
+        jPanel1.add(passwordPanel);
         passwordPanel.setBounds(450, 380, 230, 2);
 
         LoginButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -148,7 +147,7 @@ public class LoginPage extends javax.swing.JFrame {
                 LoginButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(LoginButton);
+        jPanel1.add(LoginButton);
         LoginButton.setBounds(440, 430, 120, 40);
 
         BackButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -158,40 +157,54 @@ public class LoginPage extends javax.swing.JFrame {
                 BackButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(BackButton);
-        BackButton.setBounds(170, 530, 110, 40);
+        jPanel1.add(BackButton);
+        BackButton.setBounds(40, 530, 110, 40);
 
         BGLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyProperty_Package/LoginPicture.jpg"))); // NOI18N
         BGLabel.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         BGLabel.setInheritsPopupMenu(false);
-        getContentPane().add(BGLabel);
+        jPanel1.add(BGLabel);
         BGLabel.setBounds(0, 0, 1000, 600);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void LogAsComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogAsComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LogAsComboBoxActionPerformed
 
     private void EmailPhoneFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailPhoneFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_EmailPhoneFieldActionPerformed
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
-        
+
         String comboText = LogAsComboBox.getSelectedItem().toString();
         String sql = null;
         String emailPhone = EmailPhoneField.getText();
         String password = PasswordField.getText();
-        
+
         User user = new User();
-        
+
         if(comboText == "Select")
-            JOptionPane.showMessageDialog(this, "Select you are Owner or Buyer!");
+        JOptionPane.showMessageDialog(this, "Select you are Owner or Buyer!");
         else
         {
             if(comboText == "Owner")
                 sql = "SELECT * FROM Owner WHERE (Email='" + emailPhone + "' OR Phone='" +emailPhone +"') AND Password='" + password+"'";
             else if(comboText == "Buyer")
                 sql = "SELECT * FROM Client WHERE (Email='" + emailPhone + "' OR Phone='" +emailPhone +"') AND Password='" + password+"'";
-
 
             ConnectMSSQL obj = new ConnectMSSQL();
             try {
@@ -203,32 +216,27 @@ public class LoginPage extends javax.swing.JFrame {
                 Statement statement = obj.connection.createStatement();
 
                 ResultSet resultSet = statement.executeQuery(sql);
-                
+
                 if(resultSet!= null){
                     resultSet.next();
-                    
+
                     user.setFirstName(resultSet.getString("FirstName"));
                     System.out.println("FN: " + user.getFirstName());
-                    
+
                     HomePage homePage = new HomePage(user);
                     homePage.setVisible(true);
                     this.setVisible(false);
                 }
-                
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
         }
-
     }//GEN-LAST:event_LoginButtonActionPerformed
 
-    private void LogAsComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogAsComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_LogAsComboBoxActionPerformed
-
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
-        
+
         new HomePage().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BackButtonActionPerformed
@@ -259,6 +267,7 @@ public class LoginPage extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(LoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -281,6 +290,7 @@ public class LoginPage extends javax.swing.JFrame {
     private javax.swing.JLabel PasswordLabel;
     private javax.swing.JButton SignUpButton;
     private javax.swing.JPanel emailPanel;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel passwordPanel;
     // End of variables declaration//GEN-END:variables
 }
