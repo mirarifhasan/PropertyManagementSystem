@@ -182,7 +182,7 @@ public class PropertyForm extends javax.swing.JFrame {
         ViewLabel.setForeground(new java.awt.Color(255, 255, 255));
         ViewLabel.setText("View:");
         jPanel1.add(ViewLabel);
-        ViewLabel.setBounds(765, 310, 31, 30);
+        ViewLabel.setBounds(770, 310, 31, 30);
 
         ViewTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jPanel1.add(ViewTextField);
@@ -251,12 +251,12 @@ public class PropertyForm extends javax.swing.JFrame {
         jScrollPane2.setViewportView(DescriptionTextPane);
 
         jPanel1.add(jScrollPane2);
-        jScrollPane2.setBounds(160, 440, 710, 60);
+        jScrollPane2.setBounds(160, 440, 760, 60);
 
         AddPropertyButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         AddPropertyButton.setText("Add Property");
         jPanel1.add(AddPropertyButton);
-        AddPropertyButton.setBounds(750, 525, 120, 30);
+        AddPropertyButton.setBounds(750, 530, 120, 30);
 
         BackButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         BackButton.setText("Back");
@@ -266,7 +266,7 @@ public class PropertyForm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(BackButton);
-        BackButton.setBounds(90, 525, 80, 30);
+        BackButton.setBounds(120, 530, 80, 30);
 
         BGLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         BGLabel.setForeground(new java.awt.Color(255, 255, 255));

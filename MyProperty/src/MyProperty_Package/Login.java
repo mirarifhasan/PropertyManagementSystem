@@ -200,6 +200,8 @@ public class Login extends javax.swing.JFrame {
 
         String comboText = LogAsComboBox.getSelectedItem().toString();
         String sql = null, tableName = null;
+        
+        //Getting login information
         String emailPhone = EmailPhoneField.getText();
         String password = PasswordField.getText();
 
@@ -210,14 +212,13 @@ public class Login extends javax.swing.JFrame {
         else if(emailPhone.isEmpty() || password.isEmpty())
             JOptionPane.showMessageDialog(this, "Fill the two fields properly");
         else
-        {
+        {   
+            //Setting table name
             if(comboText == "Owner"){
                 tableName = "Owner";
-                sql = "SELECT * FROM " + tableName + " WHERE (Email='" + emailPhone + "' OR Phone='" +emailPhone +"') AND Password='" + password+"'";
             }
             else if(comboText == "Buyer"){
                 tableName = "Client";
-                sql = "SELECT * FROM " + tableName + " WHERE (Email='" + emailPhone + "' OR Phone='" +emailPhone +"') AND Password='" + password+"'";
             }
                 
             ConnectMSSQL obj = new ConnectMSSQL();
@@ -225,14 +226,16 @@ public class Login extends javax.swing.JFrame {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 obj.connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=PropertyManagementSystemDB;selectMethod=cursor", "sa", "123456");
 
-                System.out.println("DATABASE NAME IS: " + obj.connection.getMetaData().getDatabaseProductName());
-
                 Statement statement = obj.connection.createStatement();
 
+                //Getting matched user
+                sql = "SELECT * FROM " + tableName + " WHERE (Email='" + emailPhone + "' OR Phone='" +emailPhone +"') AND Password='" + password+"'";
                 ResultSet resultSet = statement.executeQuery(sql);
 
                 if(resultSet.next()){
                     //resultSet.next();
+                    
+                    //Getting all data from databse to User class variables (if valid user found)
                     if(tableName == "Owner"){
                         user.setUserID(resultSet.getInt("OwnerID"));
                         user.setUserType(tableName);
@@ -251,8 +254,9 @@ public class Login extends javax.swing.JFrame {
                     this.setVisible(false);
                 }
                 else{
-                    String sqlEmail = "SELECT * FROM " + tableName + " WHERE (Email='" + emailPhone + "' OR Phone='" +emailPhone +"')";
-                    resultSet = statement.executeQuery(sqlEmail);
+                    //This block is for find which value is wrong in login form
+                    sql = "SELECT * FROM " + tableName + " WHERE (Email='" + emailPhone + "' OR Phone='" +emailPhone +"')";
+                    resultSet = statement.executeQuery(sql);
                     
                     if(resultSet.next())
                         JOptionPane.showMessageDialog(this, "Password was wrong");

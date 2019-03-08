@@ -235,7 +235,9 @@ public class SignUp extends javax.swing.JFrame {
         
         String comboBox = SignAsComboBox.getSelectedItem().toString();
         String tableName = null;
+        String sql;
 
+        //Getting all values from signup form
         user.setFirstName(FirstNameTextField.getText().trim());
         user.setLastName(LastNameTextField.getText().trim());
         user.setPhone(PhoneTextField.getText().trim());
@@ -272,50 +274,65 @@ public class SignUp extends javax.swing.JFrame {
 
                         Statement statement = obj.connection.createStatement();
 
-                        String sql = "SELECT * FROM Address WHERE City='" + address.getCity() + "' AND Area='" + address.getArea() + "' AND Road='" + address.getRoad() + "' AND Block='" + address.getBlock() + "' AND Sector='" + address.getSector() + "' AND House='" + address.getHouse() +"';";
+                        //Check duplicate user
+                        sql = "SELECT * FROM " + tableName + " WHERE Email='" + user.getEmail() + "' OR Phone='" + user.getPhone() + "';" ;
                         ResultSet resultSet = statement.executeQuery(sql);
-
-                        if(resultSet.next()){
-                            address.setAddressID(resultSet.getInt("AddressID"));
-                            user.setAddressID(resultSet.getInt("AddressID"));
-
-                            sql = "INSERT INTO " + tableName + " VALUES('" + user.getAddressID() + "', '" + user.getFirstName() + "', '" + user.getLastName() + "', '" + user.getPhone() + "', '" + user.getEmail() + "', '" + user.getPassword() + "');";
-                            statement.execute(sql);
-                            
-                            sql = "SELECT * FROM " + tableName + " WHERE Email='" + user.getEmail() + "' AND Phone='" + user.getPhone() + "';";
-                            resultSet = statement.executeQuery(sql);
-                            
-                            resultSet.next();
-                            if(tableName=="Client") user.setUserID(resultSet.getInt("ClientID"));
-                            else if(tableName=="Owner") user.setUserID(resultSet.getInt("OwnerID"));
-                            
-                            new Profile(user).setVisible(true);
-                            this.setVisible(false);
-                        }
-                        else{
-                            sql = "INSERT INTO Address VALUES ('" + address.getCity() + "', '" + address.getArea() + "', '" + address.getRoad() + "', '"+ address.getBlock() + "', '" + address.getSector() + "', '"+ address.getHouse() + "');";
-                            statement.execute(sql);
-
-                            sql = "SELECT * FROM Address WHERE City='" + address.getCity() + "' AND Area='" + address.getArea() + "' AND Road='" + address.getRoad() + "' AND Block='" + address.getBlock() + "' AND Sector='" + address.getSector() + "' AND House='" + address.getHouse() +"';";                                                 
-                            resultSet = statement.executeQuery(sql);
-                            resultSet.next();
-                            user.setAddressID(resultSet.getInt("AddressID"));
-
-                            sql = "INSERT INTO " + tableName + " VALUES('" + user.getAddressID() + "', '" + user.getFirstName() + "', '" + user.getLastName() + "', '" + user.getPhone() + "', '" + user.getEmail() + "', '" + user.getPassword() + "');";
-                            statement.execute(sql);
-                            
-                            sql = "SELECT * FROM " + tableName + " WHERE Email='" + user.getEmail() + "' AND Phone='" + user.getPhone() + "';";
-                            resultSet = statement.executeQuery(sql);
-                            
-                            resultSet.next();
-                            if(tableName=="Client") user.setUserID(resultSet.getInt("ClientID"));
-                            else if(tableName=="Owner") user.setUserID(resultSet.getInt("OwnerID"));
-                            
-                            new Profile(user).setVisible(true);
-                            this.setVisible(false);
-
-                        }
                         
+                        if(!resultSet.next()){
+                            //Getting Rows of Address table
+                            sql = "SELECT * FROM Address WHERE City='" + address.getCity() + "' AND Area='" + address.getArea() + "' AND Road='" + address.getRoad() + "' AND Block='" + address.getBlock() + "' AND Sector='" + address.getSector() + "' AND House='" + address.getHouse() +"';";
+                            resultSet = statement.executeQuery(sql);
+
+                            //Checking if the address already exists
+                            if(resultSet.next()){   //if exists
+                                address.setAddressID(resultSet.getInt("AddressID"));
+                                user.setAddressID(resultSet.getInt("AddressID"));
+
+                                //Insert only data in Owner/Client table
+                                sql = "INSERT INTO " + tableName + " VALUES('" + user.getAddressID() + "', '" + user.getFirstName() + "', '" + user.getLastName() + "', '" + user.getPhone() + "', '" + user.getEmail() + "', '" + user.getPassword() + "');";
+                                statement.execute(sql);
+
+                                //Geeting the userID (OwnerID or ClientID)
+                                sql = "SELECT * FROM " + tableName + " WHERE Email='" + user.getEmail() + "' AND Phone='" + user.getPhone() + "';";
+                                resultSet = statement.executeQuery(sql);
+
+                                resultSet.next();
+                                if(tableName=="Client") user.setUserID(resultSet.getInt("ClientID"));
+                                else if(tableName=="Owner") user.setUserID(resultSet.getInt("OwnerID"));
+
+                                new Profile(user).setVisible(true);
+                                this.setVisible(false);
+                            }
+                            else{
+                                //Address doesn't exist, then creat a row in address table
+                                sql = "INSERT INTO Address VALUES ('" + address.getCity() + "', '" + address.getArea() + "', '" + address.getRoad() + "', '"+ address.getBlock() + "', '" + address.getSector() + "', '"+ address.getHouse() + "');";
+                                statement.execute(sql);
+
+                                //Retrive the AddressID
+                                sql = "SELECT * FROM Address WHERE City='" + address.getCity() + "' AND Area='" + address.getArea() + "' AND Road='" + address.getRoad() + "' AND Block='" + address.getBlock() + "' AND Sector='" + address.getSector() + "' AND House='" + address.getHouse() +"';";                                                 
+                                resultSet = statement.executeQuery(sql);
+                                resultSet.next();
+                                user.setAddressID(resultSet.getInt("AddressID"));
+
+                                //Add row in Owner/Client table
+                                sql = "INSERT INTO " + tableName + " VALUES('" + user.getAddressID() + "', '" + user.getFirstName() + "', '" + user.getLastName() + "', '" + user.getPhone() + "', '" + user.getEmail() + "', '" + user.getPassword() + "');";
+                                statement.execute(sql);
+
+                                //Retrive UserID (OwnerID/ClientID)
+                                sql = "SELECT * FROM " + tableName + " WHERE Email='" + user.getEmail() + "' AND Phone='" + user.getPhone() + "';";
+                                resultSet = statement.executeQuery(sql);
+
+                                resultSet.next();
+                                if(tableName=="Client") user.setUserID(resultSet.getInt("ClientID"));
+                                else if(tableName=="Owner") user.setUserID(resultSet.getInt("OwnerID"));
+
+                                new Profile(user).setVisible(true);
+                                this.setVisible(false);
+
+                            }
+                        }else{
+                            JOptionPane.showMessageDialog(this, "User already exists on same Email and Phone number");
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

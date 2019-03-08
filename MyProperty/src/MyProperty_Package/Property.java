@@ -12,13 +12,15 @@ package MyProperty_Package;
 
 
 public class Property {
+
+    //Here all variables are Properties attribute
     
     private int PropertyID, AddressID, OwnerID, ClientID, RentalPrice, AdvancePrice, Area, Bedroom, Bathroom, Balcony, Lift;
     
     private String Title, Type, Status, MainView, Parking, ElectricityBackup, CCTVSecurity, Intercom;
     
     private byte[] img;
-
+    
     
     public int getPropertyID() {
         return PropertyID;

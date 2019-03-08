@@ -11,6 +11,8 @@ package MyProperty_Package;
  */
 public class User {
     
+    //Here all attributes represents User who logedin (Owner/Client)
+    
     private int userID;
     private String userType;
     private String firstName;
