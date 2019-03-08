@@ -12,19 +12,23 @@ package MyProperty_Package;
 public class User {
     
     private int userID;
+    private String userType;
     private String firstName;
     private String lastName;
     private int addressID;
     private String phone;
     private String email;
+    private String password;
 
     public void init(){
-        this.userID = 0;
+        this.userID = 10;
+        this.userType = null;
         this.firstName = null;
         this.lastName = null;
         this.addressID = 0;
         this.phone = null;
         this.email = null;
+        this.password = null;
     }
     
     public int getUserID() {
@@ -34,7 +38,15 @@ public class User {
     public void setUserID(int userID) {
         this.userID = userID;
     }
+    
+    public String getUserType() {
+        return userType;
+    }
 
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+    
     public String getFirstName() {
         return firstName;
     }
@@ -73,6 +85,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
     
 

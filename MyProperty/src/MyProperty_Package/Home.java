@@ -9,23 +9,26 @@ package MyProperty_Package;
  *
  * @author ASUS
  */
-public class HomePage extends javax.swing.JFrame {
+public class Home extends javax.swing.JFrame {
 
     /**
      * Creates new form Home
      */
-    public HomePage() {
+    public Home() {
         initComponents();
     }
-
-    HomePage(User user) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
+    
+    User user;
+    String someoneLogin = "My Profile";
+    
+    Home(User user) {
         initComponents();
-        
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        this.user = user;
         try{
             if(user.getFirstName() != null)
-                LoginButton.setText("Hi, " + user.getFirstName());
+                LoginButton.setText(someoneLogin);
         } catch(Exception e){
             System.out.println(e);
         }
@@ -57,7 +60,7 @@ public class HomePage extends javax.swing.JFrame {
         LogoLabel.setBounds(20, 40, 150, 40);
 
         LoginButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        LoginButton.setText("Add your property");
+        LoginButton.setText("Log In");
         LoginButton.setBorder(null);
         LoginButton.setRequestFocusEnabled(false);
         LoginButton.addActionListener(new java.awt.event.ActionListener() {
@@ -66,7 +69,7 @@ public class HomePage extends javax.swing.JFrame {
             }
         });
         jPanel1.add(LoginButton);
-        LoginButton.setBounds(770, 50, 160, 50);
+        LoginButton.setBounds(770, 50, 160, 40);
 
         SearchLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         SearchLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -75,7 +78,7 @@ public class HomePage extends javax.swing.JFrame {
         jPanel1.add(SearchLabel);
         SearchLabel.setBounds(300, 150, 400, 40);
 
-        BGLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyProperty_Package/HomePicture.png"))); // NOI18N
+        BGLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyProperty_Package/Image/HomeBG.png"))); // NOI18N
         BGLabel.setText("di");
         jPanel1.add(BGLabel);
         BGLabel.setBounds(-510, 0, 1932, 1080);
@@ -96,8 +99,14 @@ public class HomePage extends javax.swing.JFrame {
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
 
-        new LoginPage().setVisible(true);
-        this.setVisible(false);
+        if(LoginButton.getText() == someoneLogin){
+            new Profile(user).setVisible(true);
+            this.setVisible(false);
+        }
+        else{
+            new Login().setVisible(true);
+            this.setVisible(false);
+        }
 
     }//GEN-LAST:event_LoginButtonActionPerformed
 
@@ -118,21 +127,23 @@ public class HomePage extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HomePage().setVisible(true);
+                new Home().setVisible(true);
             }
         });
     }

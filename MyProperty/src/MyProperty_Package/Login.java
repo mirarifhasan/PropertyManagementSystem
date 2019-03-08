@@ -15,12 +15,12 @@ import javax.swing.JOptionPane;
  *
  * @author ASUS
  */
-public class LoginPage extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame {
 
     /**
      * Creates new form Login
      */
-    public LoginPage() {
+    public Login() {
         initComponents();
         EmailPhoneField.setBackground(new Color(0,0,0,0));
         PasswordField.setBackground(new Color(0,0,0,0));
@@ -56,8 +56,13 @@ public class LoginPage extends javax.swing.JFrame {
 
         SignUpButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         SignUpButton.setText("Create a new account");
+        SignUpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SignUpButtonActionPerformed(evt);
+            }
+        });
         jPanel1.add(SignUpButton);
-        SignUpButton.setBounds(740, 40, 230, 40);
+        SignUpButton.setBounds(740, 50, 210, 40);
 
         LoginLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         LoginLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -75,6 +80,7 @@ public class LoginPage extends javax.swing.JFrame {
 
         LogAsComboBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         LogAsComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Owner", "Buyer" }));
+        LogAsComboBox.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         LogAsComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LogAsComboBoxActionPerformed(evt);
@@ -98,6 +104,7 @@ public class LoginPage extends javax.swing.JFrame {
         EmailPhoneField.setBackground(new java.awt.Color(102, 102, 102));
         EmailPhoneField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         EmailPhoneField.setForeground(new java.awt.Color(255, 255, 255));
+        EmailPhoneField.setText("01996846517");
         EmailPhoneField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EmailPhoneFieldActionPerformed(evt);
@@ -109,6 +116,7 @@ public class LoginPage extends javax.swing.JFrame {
         PasswordField.setBackground(new java.awt.Color(102, 102, 102));
         PasswordField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         PasswordField.setForeground(new java.awt.Color(255, 255, 255));
+        PasswordField.setText("1234");
         jPanel1.add(PasswordField);
         PasswordField.setBounds(450, 350, 230, 30);
 
@@ -140,7 +148,7 @@ public class LoginPage extends javax.swing.JFrame {
         jPanel1.add(passwordPanel);
         passwordPanel.setBounds(450, 380, 230, 2);
 
-        LoginButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        LoginButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         LoginButton.setText("Log In");
         LoginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,7 +168,7 @@ public class LoginPage extends javax.swing.JFrame {
         jPanel1.add(BackButton);
         BackButton.setBounds(40, 530, 110, 40);
 
-        BGLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyProperty_Package/LoginPicture.jpg"))); // NOI18N
+        BGLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyProperty_Package/Image/LoginBG.jpg"))); // NOI18N
         BGLabel.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         BGLabel.setInheritsPopupMenu(false);
         jPanel1.add(BGLabel);
@@ -191,21 +199,27 @@ public class LoginPage extends javax.swing.JFrame {
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
 
         String comboText = LogAsComboBox.getSelectedItem().toString();
-        String sql = null;
+        String sql = null, tableName = null;
         String emailPhone = EmailPhoneField.getText();
         String password = PasswordField.getText();
 
         User user = new User();
 
         if(comboText == "Select")
-        JOptionPane.showMessageDialog(this, "Select you are Owner or Buyer!");
+            JOptionPane.showMessageDialog(this, "Select you are Owner or Buyer!");
+        else if(emailPhone.isEmpty() || password.isEmpty())
+            JOptionPane.showMessageDialog(this, "Fill the two fields properly");
         else
         {
-            if(comboText == "Owner")
-                sql = "SELECT * FROM Owner WHERE (Email='" + emailPhone + "' OR Phone='" +emailPhone +"') AND Password='" + password+"'";
-            else if(comboText == "Buyer")
-                sql = "SELECT * FROM Client WHERE (Email='" + emailPhone + "' OR Phone='" +emailPhone +"') AND Password='" + password+"'";
-
+            if(comboText == "Owner"){
+                tableName = "Owner";
+                sql = "SELECT * FROM " + tableName + " WHERE (Email='" + emailPhone + "' OR Phone='" +emailPhone +"') AND Password='" + password+"'";
+            }
+            else if(comboText == "Buyer"){
+                tableName = "Client";
+                sql = "SELECT * FROM " + tableName + " WHERE (Email='" + emailPhone + "' OR Phone='" +emailPhone +"') AND Password='" + password+"'";
+            }
+                
             ConnectMSSQL obj = new ConnectMSSQL();
             try {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -217,15 +231,32 @@ public class LoginPage extends javax.swing.JFrame {
 
                 ResultSet resultSet = statement.executeQuery(sql);
 
-                if(resultSet!= null){
-                    resultSet.next();
-
+                if(resultSet.next()){
+                    //resultSet.next();
+                    if(tableName == "Owner"){
+                        user.setUserID(resultSet.getInt("OwnerID"));
+                        user.setUserType(tableName);
+                    }
+                    else{
+                        user.setUserID(resultSet.getInt("ClientID"));
+                        user.setUserType(tableName);
+                    }
                     user.setFirstName(resultSet.getString("FirstName"));
-                    System.out.println("FN: " + user.getFirstName());
+                    user.setLastName(resultSet.getString("LastName"));
+                    user.setAddressID(resultSet.getInt("AddressID"));
+                    user.setEmail(resultSet.getString("Email"));
+                    user.setPhone(resultSet.getString("Phone"));
 
-                    HomePage homePage = new HomePage(user);
-                    homePage.setVisible(true);
+                    new Profile(user).setVisible(true);
                     this.setVisible(false);
+                }
+                else{
+                    String sqlEmail = "SELECT * FROM " + tableName + " WHERE (Email='" + emailPhone + "' OR Phone='" +emailPhone +"')";
+                    resultSet = statement.executeQuery(sqlEmail);
+                    
+                    if(resultSet.next())
+                        JOptionPane.showMessageDialog(this, "Password was wrong");
+                    else JOptionPane.showMessageDialog(this, "This Email / Phone not exist");
                 }
 
             } catch (Exception e) {
@@ -237,9 +268,16 @@ public class LoginPage extends javax.swing.JFrame {
 
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
 
-        new HomePage().setVisible(true);
+        new Home().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BackButtonActionPerformed
+
+    private void SignUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignUpButtonActionPerformed
+        // TODO add your handling code here:
+        new SignUp().setVisible(true);
+        this.setVisible(false);
+        
+    }//GEN-LAST:event_SignUpButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -258,21 +296,23 @@ public class LoginPage extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginPage().setVisible(true);
+                new Login().setVisible(true);
             }
         });
     }
