@@ -75,8 +75,7 @@ SELECT * FROM Address;
 
 --TrUncate TABLE client;
 --delete from owner where OwnerID='1001';
-
-delete from Address where AddressID='6';
+--delete from Address where AddressID='6';
 
 SELECT * FROM Address WHERE Block='' AND Sector='';
 SELECT * FROM Owner WHERE (Email='arif.ishan05@gmail.com' OR Phone='01996846517') AND Password='1234';

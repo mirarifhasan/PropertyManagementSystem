@@ -23,11 +23,11 @@ public class User {
     private String password;
 
     public void init(){
-        this.userID = 10;
+        this.userID = -1;
         this.userType = null;
         this.firstName = null;
         this.lastName = null;
-        this.addressID = 0;
+        this.addressID = -1;
         this.phone = null;
         this.email = null;
         this.password = null;

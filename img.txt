@@ -1,0 +1,18 @@
+JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        File f =  chooser.getSelectedFile();
+        filename = f.getAbsolutePath();
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon(filename).getImage().getScaledInstance(imglbl.getWidth(),imglbl.getHeight(),Image.SCALE_SMOOTH));
+        imglbl.setIcon(imageIcon);
+        try{
+         File image = new File (filename);
+            FileInputStream fis = new FileInputStream(image);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[1024];
+            for(int readNum;(readNum=fis.read(buf))!=-1;){
+                bos.write(buf,0,readNum);
+            }
+            person_img = bos.toByteArray();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }

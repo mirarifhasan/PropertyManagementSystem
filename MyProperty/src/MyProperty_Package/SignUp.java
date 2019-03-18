@@ -168,19 +168,19 @@ public class SignUp extends javax.swing.JFrame {
         jPanel1.add(PasswordTextField);
         PasswordTextField.setBounds(420, 340, 200, 30);
         jPanel1.add(HouseTextField);
-        HouseTextField.setBounds(130, 430, 60, 30);
+        HouseTextField.setBounds(130, 430, 75, 30);
         jPanel1.add(RoadTextField);
-        RoadTextField.setBounds(260, 430, 60, 30);
+        RoadTextField.setBounds(260, 430, 75, 30);
         jPanel1.add(BlockTextField);
-        BlockTextField.setBounds(400, 430, 60, 30);
+        BlockTextField.setBounds(400, 430, 75, 30);
         jPanel1.add(SectorTextField);
-        SectorTextField.setBounds(560, 430, 60, 30);
+        SectorTextField.setBounds(560, 430, 75, 30);
 
         AreaTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jPanel1.add(AreaTextField);
-        AreaTextField.setBounds(710, 430, 60, 30);
+        AreaTextField.setBounds(710, 430, 75, 30);
         jPanel1.add(CityTextField);
-        CityTextField.setBounds(850, 430, 60, 30);
+        CityTextField.setBounds(850, 430, 75, 30);
 
         SugnUpButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         SugnUpButton.setText("Sign Up");
