@@ -21,12 +21,12 @@ public class PropertyForm extends javax.swing.JFrame {
         initComponents();
     }
     
-    User user;
+    Users user;
     Property property;
     
     ArrayList<String> emptyFields = new ArrayList<String>();
     
-    public PropertyForm(User user) {
+    public PropertyForm(Users user) {
         initComponents();
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         
@@ -381,19 +381,25 @@ public class PropertyForm extends javax.swing.JFrame {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
        // try{
-            if(TitleTextField.getText().toString().trim().isEmpty()) emptyFields.add(TitleLabel.getText().toString().trim() + "\b");
-            else property.setTitle(TitleTextField.getText().toString().trim());
+            if(TitleTextField.getText().trim().isEmpty()) emptyFields.add(TitleLabel.getText().trim() + "\b");
+            else property.setTitle(TitleTextField.getText().trim());
 
-            if(TypeComboBox.getSelectedItem().toString() == "Select") emptyFields.add(TypeLabel.getText().toString() + "\b");
+            if(TypeComboBox.getSelectedItem().toString() == "Select") emptyFields.add(TypeLabel.getText() + "\b");
             else property.setType(TypeComboBox.getSelectedItem().toString());
             
-            if(RentalPriceTextField.getText().toString().trim().isEmpty()) emptyFields.add(RentalPriveLabel.getText().toString().trim() + "\b");   
-            else property.setRentalPrice(Integer.parseInt(RentalPriceTextField.getText().toString().trim()));
+            if(RentalPriceTextField.getText().trim().isEmpty()) emptyFields.add(RentalPriveLabel.getText().trim() + "\b");   
+            else property.setRentalPrice(Integer.parseInt(RentalPriceTextField.getText().trim()));
             
-            if(AdvancePriceTextField.getText().toString().trim().isEmpty()){property.setAdvancePrice(-1);}
-            else property.setAdvancePrice(Integer.parseInt(AdvancePriceTextField.getText().toString().trim()));  
-            
-            System.out.println(property.getAdvancePrice());
+            if(!AdvancePriceTextField.getText().trim().isEmpty()){
+                String s = AdvancePriceTextField.getText().trim();
+                int a = Integer.parseInt(s);
+                property.setAdvancePrice(a);
+                System.out.println(property.getAdvancePrice());
+            }
+                
+  
+            int a = property.getAdvancePrice();
+            System.out.println(Integer.toString(a));
             System.out.println("hi" + emptyFields);
     /*    }
         catch(Exception e){

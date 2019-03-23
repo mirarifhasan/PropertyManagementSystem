@@ -38,8 +38,6 @@ public class Login extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         SignUpButton = new javax.swing.JButton();
         LoginLabel = new javax.swing.JLabel();
-        AsLabel = new javax.swing.JLabel();
-        LogAsComboBox = new javax.swing.JComboBox<>();
         EmailLabel = new javax.swing.JLabel();
         PasswordLabel = new javax.swing.JLabel();
         EmailPhoneField = new javax.swing.JTextField();
@@ -69,37 +67,19 @@ public class Login extends javax.swing.JFrame {
         LoginLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LoginLabel.setText("Log In");
         jPanel1.add(LoginLabel);
-        LoginLabel.setBounds(425, 80, 150, 60);
-
-        AsLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        AsLabel.setForeground(new java.awt.Color(255, 255, 255));
-        AsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        AsLabel.setText("As");
-        jPanel1.add(AsLabel);
-        AsLabel.setBounds(470, 150, 60, 40);
-
-        LogAsComboBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        LogAsComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Owner", "Buyer" }));
-        LogAsComboBox.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        LogAsComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LogAsComboBoxActionPerformed(evt);
-            }
-        });
-        jPanel1.add(LogAsComboBox);
-        LogAsComboBox.setBounds(450, 190, 100, 30);
+        LoginLabel.setBounds(430, 100, 150, 60);
 
         EmailLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         EmailLabel.setForeground(new java.awt.Color(255, 255, 255));
         EmailLabel.setText("Email / Phone");
         jPanel1.add(EmailLabel);
-        EmailLabel.setBounds(320, 280, 120, 30);
+        EmailLabel.setBounds(320, 210, 120, 30);
 
         PasswordLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         PasswordLabel.setForeground(new java.awt.Color(255, 255, 255));
         PasswordLabel.setText("Password");
         jPanel1.add(PasswordLabel);
-        PasswordLabel.setBounds(320, 350, 120, 30);
+        PasswordLabel.setBounds(320, 280, 120, 30);
 
         EmailPhoneField.setBackground(new java.awt.Color(102, 102, 102));
         EmailPhoneField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -111,14 +91,14 @@ public class Login extends javax.swing.JFrame {
             }
         });
         jPanel1.add(EmailPhoneField);
-        EmailPhoneField.setBounds(450, 280, 230, 30);
+        EmailPhoneField.setBounds(450, 210, 230, 30);
 
         PasswordField.setBackground(new java.awt.Color(102, 102, 102));
         PasswordField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         PasswordField.setForeground(new java.awt.Color(255, 255, 255));
         PasswordField.setText("1234");
         jPanel1.add(PasswordField);
-        PasswordField.setBounds(450, 350, 230, 30);
+        PasswordField.setBounds(450, 280, 230, 30);
 
         javax.swing.GroupLayout emailPanelLayout = new javax.swing.GroupLayout(emailPanel);
         emailPanel.setLayout(emailPanelLayout);
@@ -132,7 +112,7 @@ public class Login extends javax.swing.JFrame {
         );
 
         jPanel1.add(emailPanel);
-        emailPanel.setBounds(450, 310, 230, 2);
+        emailPanel.setBounds(450, 240, 230, 2);
 
         javax.swing.GroupLayout passwordPanelLayout = new javax.swing.GroupLayout(passwordPanel);
         passwordPanel.setLayout(passwordPanelLayout);
@@ -146,7 +126,7 @@ public class Login extends javax.swing.JFrame {
         );
 
         jPanel1.add(passwordPanel);
-        passwordPanel.setBounds(450, 380, 230, 2);
+        passwordPanel.setBounds(450, 310, 230, 2);
 
         LoginButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         LoginButton.setText("Log In");
@@ -156,7 +136,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
         jPanel1.add(LoginButton);
-        LoginButton.setBounds(440, 430, 120, 40);
+        LoginButton.setBounds(440, 380, 120, 40);
 
         BackButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         BackButton.setText("Back");
@@ -166,7 +146,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
         jPanel1.add(BackButton);
-        BackButton.setBounds(40, 530, 110, 40);
+        BackButton.setBounds(70, 520, 110, 40);
 
         BGLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyProperty_Package/Image/LoginBG.jpg"))); // NOI18N
         BGLabel.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -188,39 +168,26 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void LogAsComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogAsComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_LogAsComboBoxActionPerformed
-
     private void EmailPhoneFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailPhoneFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_EmailPhoneFieldActionPerformed
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
 
-        String comboText = LogAsComboBox.getSelectedItem().toString();
-        String sql = null, tableName = null;
+        String sql = null, tableName = "Users";
         
         //Getting login information
         String emailPhone = EmailPhoneField.getText();
         String password = PasswordField.getText();
 
-        User user = new User();
+        Users users = new Users();
 
-        if(comboText == "Select")
-            JOptionPane.showMessageDialog(this, "Select you are Owner or Buyer!");
-        else if(emailPhone.isEmpty() || password.isEmpty())
-            JOptionPane.showMessageDialog(this, "Fill the two fields properly");
+        if(emailPhone.isEmpty())
+            JOptionPane.showMessageDialog(this, "Insert your Email / Phone");
+        else if(password.isEmpty())
+            JOptionPane.showMessageDialog(this, "Insert Password");
         else
-        {   
-            //Setting table name
-            if(comboText == "Owner"){
-                tableName = "Owner";
-            }
-            else if(comboText == "Buyer"){
-                tableName = "Client";
-            }
-                
+        {    
             ConnectMSSQL obj = new ConnectMSSQL();
             try {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -229,28 +196,20 @@ public class Login extends javax.swing.JFrame {
                 Statement statement = obj.connection.createStatement();
 
                 //Getting matched user
-                sql = "SELECT * FROM " + tableName + " WHERE (Email='" + emailPhone + "' OR Phone='" +emailPhone +"') AND Password='" + password+"'";
+                sql = "SELECT * FROM " + tableName + " WHERE (Email='" + emailPhone + "' OR Phone='" +emailPhone +"') AND Password='" + password+"';";
                 ResultSet resultSet = statement.executeQuery(sql);
 
                 if(resultSet.next()){
-                    //resultSet.next();
                     
-                    //Getting all data from databse to User class variables (if valid user found)
-                    if(tableName == "Owner"){
-                        user.setUserID(resultSet.getInt("OwnerID"));
-                        user.setUserType(tableName);
-                    }
-                    else{
-                        user.setUserID(resultSet.getInt("ClientID"));
-                        user.setUserType(tableName);
-                    }
-                    user.setFirstName(resultSet.getString("FirstName"));
-                    user.setLastName(resultSet.getString("LastName"));
-                    user.setAddressID(resultSet.getInt("AddressID"));
-                    user.setEmail(resultSet.getString("Email"));
-                    user.setPhone(resultSet.getString("Phone"));
+                    //Getting all data from databse to Users class variables (if valid user found)
+                    users.setUsersID(resultSet.getInt("UsersID"));
+                    users.setFirstName(resultSet.getString("FirstName"));
+                    users.setLastName(resultSet.getString("LastName"));
+                    users.setAddressID(resultSet.getInt("AddressID"));
+                    users.setEmail(resultSet.getString("Email"));
+                    users.setPhone(resultSet.getString("Phone"));
 
-                    new Profile(user).setVisible(true);
+                    new Profile(users).setVisible(true);
                     this.setVisible(false);
                 }
                 else{
@@ -322,12 +281,10 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel AsLabel;
     private javax.swing.JLabel BGLabel;
     private javax.swing.JButton BackButton;
     private javax.swing.JLabel EmailLabel;
     private javax.swing.JTextField EmailPhoneField;
-    private javax.swing.JComboBox<String> LogAsComboBox;
     private javax.swing.JButton LoginButton;
     private javax.swing.JLabel LoginLabel;
     private javax.swing.JPasswordField PasswordField;

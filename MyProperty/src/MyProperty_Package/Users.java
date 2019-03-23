@@ -9,12 +9,11 @@ package MyProperty_Package;
  *
  * @author ASUS
  */
-public class User {
+public class Users {
     
-    //Here all attributes represents User who logedin (Owner/Client)
+    //Here all attributes represents Users who logedin (Owner/Client)
     
-    private int userID;
-    private String userType;
+    private int usersID;
     private String firstName;
     private String lastName;
     private int addressID;
@@ -23,8 +22,7 @@ public class User {
     private String password;
 
     public void init(){
-        this.userID = -1;
-        this.userType = null;
+        this.usersID = -1;
         this.firstName = null;
         this.lastName = null;
         this.addressID = -1;
@@ -33,20 +31,12 @@ public class User {
         this.password = null;
     }
     
-    public int getUserID() {
-        return userID;
+    public int getUsersID() {
+        return usersID;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
-    
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
+    public void setUsersID(int usersID) {
+        this.usersID = usersID;
     }
     
     public String getFirstName() {
@@ -96,7 +86,5 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-
     
 }

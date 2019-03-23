@@ -20,14 +20,14 @@ public class Profile extends javax.swing.JFrame {
         initComponents();
     }
     
-    User user;
+    Users user;
     
-    Profile(User user) {
+    Profile(Users user) {
         initComponents();
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         
         this.user = user;
-        NameLabel.setText("Hi, " + user.getFirstName() + " (User ID: " + user.getUserID() + ")");
+        NameLabel.setText("Hi, " + user.getFirstName() + " (User ID: " + user.getUsersID() + ")");
         jPanel1.setFocusable(true);
         
     }

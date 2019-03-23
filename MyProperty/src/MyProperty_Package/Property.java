@@ -15,7 +15,7 @@ public class Property {
 
     //Here all variables are Properties attribute
     
-    private int PropertyID, AddressID, OwnerID, ClientID, RentalPrice, AdvancePrice, Area, Bedroom, Bathroom, Balcony, Lift;
+    private int PropertyID, AddressID, UsersID, RentalPrice, AdvancePrice = 0, Area, Bedroom, Bathroom, Balcony, Lift;
     
     private String Title, Type, Status, MainView, Parking, ElectricityBackup, CCTVSecurity, Intercom;
     
@@ -38,20 +38,12 @@ public class Property {
         this.AddressID = AddressID;
     }
 
-    public int getOwnerID() {
-        return OwnerID;
+    public int getUsersID() {
+        return UsersID;
     }
 
-    public void setOwnerID(int OwnerID) {
-        this.OwnerID = OwnerID;
-    }
-
-    public int getClientID() {
-        return ClientID;
-    }
-
-    public void setClientID(int ClientID) {
-        this.ClientID = ClientID;
+    public void setUsersID(int UsersID) {
+        this.UsersID = UsersID;
     }
 
     public int getRentalPrice() {

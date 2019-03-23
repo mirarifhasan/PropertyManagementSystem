@@ -18,10 +18,10 @@ public class Home extends javax.swing.JFrame {
         initComponents();
     }
     
-    User user;
+    Users user;
     String someoneLogin = "My Profile";
     
-    Home(User user) {
+    Home(Users user) {
         initComponents();
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
