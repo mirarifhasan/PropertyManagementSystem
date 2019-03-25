@@ -14,13 +14,33 @@ package MyProperty_Package;
 public class Property {
 
     //Here all variables are Properties attribute
-    
-    private int PropertyID, AddressID, UsersID, RentalPrice, AdvancePrice = 0, Area, Bedroom, Bathroom, Balcony, Lift;
-    
-    private String Title, Type, Status, MainView, Parking, ElectricityBackup, CCTVSecurity, Intercom;
-    
+    private int PropertyID, AddressID, OwnerID, BuyerID, RentalPrice, AdvancePrice, Area, Bedroom, Bathroom, Balcony, Lift;
+    private String Title, Type, Status, MainView, Parking, ElectricityBackup, CCTVSecurity, Intercom;    
     private byte[] img;
+
     
+    public Property() {
+        this.PropertyID = -1;
+        this.AddressID = -1;
+        this.OwnerID = -1;
+        this.BuyerID = -1;
+        this.RentalPrice = -1;
+        this.AdvancePrice = -1;
+        this.Area = -1;
+        this.Bedroom = -1;
+        this.Bathroom = -1;
+        this.Balcony = -1;
+        this.Lift = -1;
+        this.Title = null;
+        this.Type = null;
+        this.Status = null;
+        this.MainView = null;
+        this.Parking = null;
+        this.ElectricityBackup = null;
+        this.CCTVSecurity = null;
+        this.Intercom = null;
+        this.img = null;
+    }
     
     public int getPropertyID() {
         return PropertyID;
@@ -38,12 +58,20 @@ public class Property {
         this.AddressID = AddressID;
     }
 
-    public int getUsersID() {
-        return UsersID;
+    public int getOwnerID() {
+        return OwnerID;
     }
 
-    public void setUsersID(int UsersID) {
-        this.UsersID = UsersID;
+    public void setOwnerID(int OwnerID) {
+        this.OwnerID = OwnerID;
+    }
+
+    public int getBuyerID() {
+        return BuyerID;
+    }
+
+    public void setBuyerID(int BuyerID) {
+        this.BuyerID = BuyerID;
     }
 
     public int getRentalPrice() {
@@ -174,5 +202,4 @@ public class Property {
         this.img = img;
     }
 
-    
 }

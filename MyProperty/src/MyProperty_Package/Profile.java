@@ -73,10 +73,10 @@ public class Profile extends javax.swing.JFrame {
         jPanel1.add(NameLabel);
         NameLabel.setBounds(100, 80, 510, 30);
 
-        TableHeading.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        TableHeading.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         TableHeading.setForeground(new java.awt.Color(255, 255, 255));
         TableHeading.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        TableHeading.setText("Your Properties");
+        TableHeading.setText("My Properties");
         TableHeading.setToolTipText("");
         TableHeading.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel1.add(TableHeading);
@@ -90,7 +90,7 @@ public class Profile extends javax.swing.JFrame {
             }
         });
         jPanel1.add(AddPropertyButton);
-        AddPropertyButton.setBounds(720, 450, 110, 35);
+        AddPropertyButton.setBounds(790, 460, 110, 35);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -118,7 +118,7 @@ public class Profile extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(180, 150, 650, 290);
+        jScrollPane1.setBounds(90, 150, 810, 290);
 
         UpdateTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         UpdateTextField.setText("Enter Porperty ID for update");
@@ -136,12 +136,12 @@ public class Profile extends javax.swing.JFrame {
             }
         });
         jPanel1.add(UpdateTextField);
-        UpdateTextField.setBounds(180, 452, 190, 30);
+        UpdateTextField.setBounds(90, 460, 190, 35);
 
         UpdateButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         UpdateButton.setText("Update");
         jPanel1.add(UpdateButton);
-        UpdateButton.setBounds(372, 450, 73, 35);
+        UpdateButton.setBounds(290, 460, 73, 35);
 
         HomeButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         HomeButton.setText("Back to Home");
@@ -151,7 +151,7 @@ public class Profile extends javax.swing.JFrame {
             }
         });
         jPanel1.add(HomeButton);
-        HomeButton.setBounds(80, 540, 140, 40);
+        HomeButton.setBounds(90, 530, 140, 40);
 
         BGLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyProperty_Package/Image/ProfileBG.jpg"))); // NOI18N
         jPanel1.add(BGLabel);
@@ -174,8 +174,7 @@ public class Profile extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void LogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutButtonActionPerformed
-        // TODO add your handling code here:
-        user.init();
+        // TODO add your handling code here
         new Home().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_LogoutButtonActionPerformed

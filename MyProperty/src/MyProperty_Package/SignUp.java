@@ -237,8 +237,6 @@ public class SignUp extends javax.swing.JFrame {
         address.setHouse(HouseTextField.getText().toString().trim());
         
         
-
-        
         if(!user.getFirstName().isEmpty() && !user.getLastName().isEmpty() && !user.getPhone().isEmpty() && !user.getPassword().isEmpty()){
 
             if(!address.getCity().isEmpty() && !address.getArea().isEmpty() && !address.getHouse().isEmpty()){

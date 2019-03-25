@@ -12,7 +12,6 @@ package MyProperty_Package;
 public class Users {
     
     //Here all attributes represents Users who logedin (Owner/Client)
-    
     private int usersID;
     private String firstName;
     private String lastName;
@@ -21,7 +20,7 @@ public class Users {
     private String email;
     private String password;
 
-    public void init(){
+    public Users() {
         this.usersID = -1;
         this.firstName = null;
         this.lastName = null;
@@ -30,7 +29,7 @@ public class Users {
         this.email = null;
         this.password = null;
     }
-    
+
     public int getUsersID() {
         return usersID;
     }

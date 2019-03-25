@@ -5,8 +5,15 @@
  */
 package MyProperty_Package;
 
+import java.awt.Image;
 import java.awt.List;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,9 +29,9 @@ public class PropertyForm extends javax.swing.JFrame {
     }
     
     Users user;
-    Property property;
-    
-    ArrayList<String> emptyFields = new ArrayList<String>();
+    Property property = new Property();
+    Address address = new Address();
+
     
     public PropertyForm(Users user) {
         initComponents();
@@ -49,23 +56,23 @@ public class PropertyForm extends javax.swing.JFrame {
         TypeLabel = new javax.swing.JLabel();
         TypeComboBox = new javax.swing.JComboBox<>();
         Status = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        RentalPriveLabel = new javax.swing.JLabel();
+        StatusComboBox = new javax.swing.JComboBox<>();
+        RentalPriceLabel = new javax.swing.JLabel();
         RentalPriceTextField = new javax.swing.JTextField();
         AdvancePriceLabel = new javax.swing.JLabel();
         AdvancePriceTextField = new javax.swing.JTextField();
-        AreaLabel = new javax.swing.JLabel();
-        AreaTextField = new javax.swing.JTextField();
+        AreaSqftLabel = new javax.swing.JLabel();
+        AreaSqftTextField = new javax.swing.JTextField();
         BedroomLabel = new javax.swing.JLabel();
-        BedroomTextField = new javax.swing.JTextField();
+        BedroomComboBox = new javax.swing.JComboBox<>();
         BathroomLabel = new javax.swing.JLabel();
-        BathroomTextField = new javax.swing.JTextField();
+        BathroomComboBox = new javax.swing.JComboBox<>();
         BalconyLabel = new javax.swing.JLabel();
-        BalconyTextField = new javax.swing.JTextField();
+        BalconyComboBox = new javax.swing.JComboBox<>();
         ViewLabel = new javax.swing.JLabel();
-        ViewTextField = new javax.swing.JTextField();
+        ViewComboBox = new javax.swing.JComboBox<>();
         LiftLabel = new javax.swing.JLabel();
-        LiftTextField = new javax.swing.JTextField();
+        LiftComboBox = new javax.swing.JComboBox<>();
         ParkingLabel = new javax.swing.JLabel();
         ParkingComboBox = new javax.swing.JComboBox<>();
         ElectricityLabel = new javax.swing.JLabel();
@@ -84,14 +91,16 @@ public class PropertyForm extends javax.swing.JFrame {
         RoadLabel = new javax.swing.JLabel();
         BlockLabel = new javax.swing.JLabel();
         SectorLabel = new javax.swing.JLabel();
-        AreaLabel1 = new javax.swing.JLabel();
+        AreaLabel = new javax.swing.JLabel();
         CityLabel = new javax.swing.JLabel();
         CityTextField = new javax.swing.JTextField();
         RoadTextField = new javax.swing.JTextField();
         SectorTextField = new javax.swing.JTextField();
         HouseTextField = new javax.swing.JTextField();
-        AreaTextField1 = new javax.swing.JTextField();
+        AreaTextField = new javax.swing.JTextField();
         BlockTextField = new javax.swing.JTextField();
+        imageLabel = new javax.swing.JLabel();
+        imageButton = new javax.swing.JButton();
         BGLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -133,16 +142,16 @@ public class PropertyForm extends javax.swing.JFrame {
         jPanel1.add(Status);
         Status.setBounds(80, 150, 85, 30);
 
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "Not Avalable" }));
-        jPanel1.add(jComboBox1);
-        jComboBox1.setBounds(170, 150, 110, 30);
+        StatusComboBox.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        StatusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "Not Avalable" }));
+        jPanel1.add(StatusComboBox);
+        StatusComboBox.setBounds(170, 150, 110, 30);
 
-        RentalPriveLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        RentalPriveLabel.setForeground(new java.awt.Color(255, 255, 255));
-        RentalPriveLabel.setText("Rental Price:");
-        jPanel1.add(RentalPriveLabel);
-        RentalPriveLabel.setBounds(80, 190, 85, 30);
+        RentalPriceLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        RentalPriceLabel.setForeground(new java.awt.Color(255, 255, 255));
+        RentalPriceLabel.setText("Rental Price:");
+        jPanel1.add(RentalPriceLabel);
+        RentalPriceLabel.setBounds(80, 190, 85, 30);
 
         RentalPriceTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jPanel1.add(RentalPriceTextField);
@@ -156,15 +165,15 @@ public class PropertyForm extends javax.swing.JFrame {
         jPanel1.add(AdvancePriceTextField);
         AdvancePriceTextField.setBounds(170, 230, 110, 30);
 
-        AreaLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        AreaLabel.setForeground(new java.awt.Color(255, 255, 255));
-        AreaLabel.setText("Area (sqft):");
-        jPanel1.add(AreaLabel);
-        AreaLabel.setBounds(80, 360, 70, 30);
+        AreaSqftLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        AreaSqftLabel.setForeground(new java.awt.Color(255, 255, 255));
+        AreaSqftLabel.setText("Area (sqft):");
+        jPanel1.add(AreaSqftLabel);
+        AreaSqftLabel.setBounds(80, 360, 70, 30);
 
-        AreaTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jPanel1.add(AreaTextField);
-        AreaTextField.setBounds(150, 360, 70, 30);
+        AreaSqftTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jPanel1.add(AreaSqftTextField);
+        AreaSqftTextField.setBounds(150, 360, 70, 30);
 
         BedroomLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         BedroomLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -172,39 +181,39 @@ public class PropertyForm extends javax.swing.JFrame {
         jPanel1.add(BedroomLabel);
         BedroomLabel.setBounds(260, 360, 53, 30);
 
-        BedroomTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jPanel1.add(BedroomTextField);
-        BedroomTextField.setBounds(320, 360, 70, 30);
+        BedroomComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6" }));
+        jPanel1.add(BedroomComboBox);
+        BedroomComboBox.setBounds(320, 360, 70, 30);
 
         BathroomLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         BathroomLabel.setForeground(new java.awt.Color(255, 255, 255));
         BathroomLabel.setText("Bathroom:");
         jPanel1.add(BathroomLabel);
-        BathroomLabel.setBounds(410, 360, 57, 30);
+        BathroomLabel.setBounds(450, 360, 57, 30);
 
-        BathroomTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jPanel1.add(BathroomTextField);
-        BathroomTextField.setBounds(515, 360, 70, 30);
+        BathroomComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4" }));
+        jPanel1.add(BathroomComboBox);
+        BathroomComboBox.setBounds(515, 360, 70, 30);
 
         BalconyLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         BalconyLabel.setForeground(new java.awt.Color(255, 255, 255));
         BalconyLabel.setText("Balcony:");
         jPanel1.add(BalconyLabel);
-        BalconyLabel.setBounds(610, 360, 45, 30);
+        BalconyLabel.setBounds(620, 360, 45, 30);
 
-        BalconyTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jPanel1.add(BalconyTextField);
-        BalconyTextField.setBounds(670, 360, 70, 30);
+        BalconyComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3" }));
+        jPanel1.add(BalconyComboBox);
+        BalconyComboBox.setBounds(670, 360, 70, 30);
 
         ViewLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         ViewLabel.setForeground(new java.awt.Color(255, 255, 255));
         ViewLabel.setText("View:");
         jPanel1.add(ViewLabel);
-        ViewLabel.setBounds(770, 360, 31, 30);
+        ViewLabel.setBounds(810, 360, 31, 30);
 
-        ViewTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jPanel1.add(ViewTextField);
-        ViewTextField.setBounds(850, 360, 70, 30);
+        ViewComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "East", "West", "North", "South" }));
+        jPanel1.add(ViewComboBox);
+        ViewComboBox.setBounds(850, 360, 80, 30);
 
         LiftLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LiftLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -212,9 +221,9 @@ public class PropertyForm extends javax.swing.JFrame {
         jPanel1.add(LiftLabel);
         LiftLabel.setBounds(120, 410, 21, 30);
 
-        LiftTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jPanel1.add(LiftTextField);
-        LiftTextField.setBounds(150, 410, 70, 30);
+        LiftComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4" }));
+        jPanel1.add(LiftComboBox);
+        LiftComboBox.setBounds(150, 410, 70, 30);
 
         ParkingLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         ParkingLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -253,12 +262,12 @@ public class PropertyForm extends javax.swing.JFrame {
         CCTVLabel.setForeground(new java.awt.Color(255, 255, 255));
         CCTVLabel.setText("CCTV Security:");
         jPanel1.add(CCTVLabel);
-        CCTVLabel.setBounds(770, 410, 82, 30);
+        CCTVLabel.setBounds(760, 410, 82, 30);
 
         CCTVComboBox.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         CCTVComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Yes", "No" }));
         jPanel1.add(CCTVComboBox);
-        CCTVComboBox.setBounds(850, 410, 70, 30);
+        CCTVComboBox.setBounds(850, 410, 80, 30);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -279,7 +288,7 @@ public class PropertyForm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(AddPropertyButton);
-        AddPropertyButton.setBounds(750, 540, 120, 30);
+        AddPropertyButton.setBounds(800, 540, 120, 30);
 
         BackButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         BackButton.setText("Back");
@@ -289,7 +298,7 @@ public class PropertyForm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(BackButton);
-        BackButton.setBounds(120, 540, 80, 30);
+        BackButton.setBounds(80, 540, 80, 30);
 
         AddressLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         AddressLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -321,11 +330,11 @@ public class PropertyForm extends javax.swing.JFrame {
         jPanel1.add(SectorLabel);
         SectorLabel.setBounds(510, 300, 40, 30);
 
-        AreaLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        AreaLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        AreaLabel1.setText("Area:");
-        jPanel1.add(AreaLabel1);
-        AreaLabel1.setBounds(660, 300, 29, 30);
+        AreaLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        AreaLabel.setForeground(new java.awt.Color(255, 255, 255));
+        AreaLabel.setText("Area:");
+        jPanel1.add(AreaLabel);
+        AreaLabel.setBounds(660, 300, 29, 30);
 
         CityLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         CityLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -333,7 +342,7 @@ public class PropertyForm extends javax.swing.JFrame {
         jPanel1.add(CityLabel);
         CityLabel.setBounds(820, 300, 24, 30);
         jPanel1.add(CityTextField);
-        CityTextField.setBounds(850, 300, 75, 30);
+        CityTextField.setBounds(850, 300, 80, 30);
         jPanel1.add(RoadTextField);
         RoadTextField.setBounds(260, 300, 75, 30);
         jPanel1.add(SectorTextField);
@@ -341,11 +350,25 @@ public class PropertyForm extends javax.swing.JFrame {
         jPanel1.add(HouseTextField);
         HouseTextField.setBounds(130, 300, 75, 30);
 
-        AreaTextField1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jPanel1.add(AreaTextField1);
-        AreaTextField1.setBounds(710, 300, 75, 30);
+        AreaTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jPanel1.add(AreaTextField);
+        AreaTextField.setBounds(710, 300, 75, 30);
         jPanel1.add(BlockTextField);
         BlockTextField.setBounds(400, 300, 75, 30);
+
+        imageLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        imageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyProperty_Package/Image/photoPlus.png"))); // NOI18N
+        jPanel1.add(imageLabel);
+        imageLabel.setBounds(640, 120, 140, 150);
+
+        imageButton.setText("Upload Image");
+        imageButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imageButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(imageButton);
+        imageButton.setBounds(800, 180, 120, 30);
 
         BGLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         BGLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -376,46 +399,100 @@ public class PropertyForm extends javax.swing.JFrame {
         new Profile(user).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BackButtonActionPerformed
-    
-    private void takeData() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
-       // try{
-            if(TitleTextField.getText().trim().isEmpty()) emptyFields.add(TitleLabel.getText().trim() + "\b");
-            else property.setTitle(TitleTextField.getText().trim());
-
-            if(TypeComboBox.getSelectedItem().toString() == "Select") emptyFields.add(TypeLabel.getText() + "\b");
-            else property.setType(TypeComboBox.getSelectedItem().toString());
-            
-            if(RentalPriceTextField.getText().trim().isEmpty()) emptyFields.add(RentalPriveLabel.getText().trim() + "\b");   
-            else property.setRentalPrice(Integer.parseInt(RentalPriceTextField.getText().trim()));
-            
-            if(!AdvancePriceTextField.getText().trim().isEmpty()){
-                String s = AdvancePriceTextField.getText().trim();
-                int a = Integer.parseInt(s);
-                property.setAdvancePrice(a);
-                System.out.println(property.getAdvancePrice());
-            }
-                
-  
-            int a = property.getAdvancePrice();
-            System.out.println(Integer.toString(a));
-            System.out.println("hi" + emptyFields);
-    /*    }
-        catch(Exception e){
-            System.out.println("hi" + e + "hi");
-        }
-        */
-        
-    }
-    
     private void AddPropertyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddPropertyButtonActionPerformed
+            
+        ArrayList<String> emptyFields = new ArrayList<String>();
+
         
-        takeData();
+        if(TitleTextField.getText().trim().isEmpty()) emptyFields.add("Title");
+        else property.setTitle(TitleTextField.getText().trim());
+
+        if(TypeComboBox.getSelectedItem().toString() == "Select") emptyFields.add("Type");
+        else property.setType(TypeComboBox.getSelectedItem().toString());
+
+        property.setStatus(StatusComboBox.getSelectedItem().toString());
+
+        if(RentalPriceTextField.getText().trim().isEmpty()) emptyFields.add("Rental price");   
+        else property.setRentalPrice(Integer.parseInt(RentalPriceTextField.getText().trim()));
+
+        if(!AdvancePriceTextField.getText().trim().isEmpty())
+            property.setAdvancePrice(Integer.parseInt(AdvancePriceTextField.getText().trim()));
+        
+        if(AreaSqftTextField.getText().trim().isEmpty()) emptyFields.add("Area(Sqft)");   
+        else property.setArea(Integer.parseInt(AreaSqftTextField.getText().trim()));
+
+        property.setBedroom(Integer.parseInt(BedroomComboBox.getSelectedItem().toString()));
+        
+        property.setBathroom(Integer.parseInt(BathroomComboBox.getSelectedItem().toString()));
+        
+        property.setBalcony(Integer.parseInt(BalconyComboBox.getSelectedItem().toString()));
+        
+        property.setMainView(ViewComboBox.getSelectedItem().toString());
+
+        property.setLift(Integer.parseInt(LiftComboBox.getSelectedItem().toString()));
+        
+        if(ParkingComboBox.getSelectedItem().toString() == "Select") emptyFields.add("Parking");
+        else property.setParking(ParkingComboBox.getSelectedItem().toString());
+        
+        if(ElectricityComboBox.getSelectedItem().toString() == "Select") emptyFields.add("Electricity backup");
+        else property.setElectricityBackup(ElectricityComboBox.getSelectedItem().toString());
+                
+        if(IntercomComboBox.getSelectedItem().toString() == "Select") emptyFields.add("Intercom");
+        else property.setIntercom(IntercomComboBox.getSelectedItem().toString());
+                        
+        if(CCTVComboBox.getSelectedItem().toString() == "Select") emptyFields.add("CCTV");
+        else property.setCCTVSecurity(CCTVComboBox.getSelectedItem().toString());
         
         
+        boolean b = true;
+        if(CityTextField.getText().trim().isEmpty()) b = false;
+            address.setCity(CityTextField.getText().trim());
+        if(AreaTextField.getText().trim().isEmpty()) b = false;
+            address.setArea(AreaTextField.getText().trim());
+        address.setSector(SectorTextField.getText().trim());
+        address.setBlock(BlockTextField.getText().trim());
+        address.setRoad(RoadTextField.getText().trim());
+        if(HouseTextField.getText().trim().isEmpty()) b = false;
+            address.setHouse(HouseTextField.getText().trim());
         
+        if(!b)
+            JOptionPane.showMessageDialog(this, "Must fill city, area and house fields");
+        
+        
+        if(emptyFields.isEmpty()){
+            //SQL
+        }
+        else JOptionPane.showMessageDialog(this, "Fill this fields: " + emptyFields);
+            
     }//GEN-LAST:event_AddPropertyButtonActionPerformed
+
+    private void imageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imageButtonActionPerformed
+        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        String filename = f.getAbsolutePath();
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon(filename).getImage().getScaledInstance(imageLabel.getWidth(), imageLabel.getHeight(), Image.SCALE_SMOOTH));
+        imageLabel.setIcon(imageIcon);
+        
+        try{
+            File image = new File(filename);
+            FileInputStream fis = new FileInputStream(image);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[1024];
+            for(int readNum; (readNum=fis.read(buf))!=-1;){
+                bos.write(buf, 0, readNum);
+            }
+            byte[] pimg = null;
+            pimg = bos.toByteArray();
+            property.setImg(pimg);
+        }
+        catch(Exception e){
+            
+        }
+        
+    }//GEN-LAST:event_imageButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -458,17 +535,17 @@ public class PropertyForm extends javax.swing.JFrame {
     private javax.swing.JLabel AdvancePriceLabel;
     private javax.swing.JTextField AdvancePriceTextField;
     private javax.swing.JLabel AreaLabel;
-    private javax.swing.JLabel AreaLabel1;
+    private javax.swing.JLabel AreaSqftLabel;
+    private javax.swing.JTextField AreaSqftTextField;
     private javax.swing.JTextField AreaTextField;
-    private javax.swing.JTextField AreaTextField1;
     private javax.swing.JLabel BGLabel;
     private javax.swing.JButton BackButton;
+    private javax.swing.JComboBox<String> BalconyComboBox;
     private javax.swing.JLabel BalconyLabel;
-    private javax.swing.JTextField BalconyTextField;
+    private javax.swing.JComboBox<String> BathroomComboBox;
     private javax.swing.JLabel BathroomLabel;
-    private javax.swing.JTextField BathroomTextField;
+    private javax.swing.JComboBox<String> BedroomComboBox;
     private javax.swing.JLabel BedroomLabel;
-    private javax.swing.JTextField BedroomTextField;
     private javax.swing.JLabel BlockLabel;
     private javax.swing.JTextField BlockTextField;
     private javax.swing.JComboBox<String> CCTVComboBox;
@@ -482,25 +559,27 @@ public class PropertyForm extends javax.swing.JFrame {
     private javax.swing.JTextField HouseTextField;
     private javax.swing.JComboBox<String> IntercomComboBox;
     private javax.swing.JLabel IntercomLabel;
+    private javax.swing.JComboBox<String> LiftComboBox;
     private javax.swing.JLabel LiftLabel;
-    private javax.swing.JTextField LiftTextField;
     private javax.swing.JComboBox<String> ParkingComboBox;
     private javax.swing.JLabel ParkingLabel;
     private javax.swing.JLabel PropertyIDLabel;
+    private javax.swing.JLabel RentalPriceLabel;
     private javax.swing.JTextField RentalPriceTextField;
-    private javax.swing.JLabel RentalPriveLabel;
     private javax.swing.JLabel RoadLabel;
     private javax.swing.JTextField RoadTextField;
     private javax.swing.JLabel SectorLabel;
     private javax.swing.JTextField SectorTextField;
     private javax.swing.JLabel Status;
+    private javax.swing.JComboBox<String> StatusComboBox;
     private javax.swing.JLabel TitleLabel;
     private javax.swing.JTextField TitleTextField;
     private javax.swing.JComboBox<String> TypeComboBox;
     private javax.swing.JLabel TypeLabel;
+    private javax.swing.JComboBox<String> ViewComboBox;
     private javax.swing.JLabel ViewLabel;
-    private javax.swing.JTextField ViewTextField;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton imageButton;
+    private javax.swing.JLabel imageLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;

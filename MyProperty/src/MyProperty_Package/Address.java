@@ -14,8 +14,7 @@ public class Address {
     private String city, area, road, block, sector, house;
     private int addressID;
 
-    
-    public void init(){
+    public Address() {
         this.addressID = -1;
         this.city = null;
         this.area = null;
@@ -80,7 +79,6 @@ public class Address {
     public void setHouse(String house) {
         this.house = house;
     }
-    
     
     
 }

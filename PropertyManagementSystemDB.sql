@@ -48,18 +48,22 @@ CREATE TABLE Property(
 	Bedroom int NOT NULL,
 	Bathroom int NOT NULL,
 	Balcony int NOT NULL,
-	Lift int,
 	MainView varchar(20), --Ex: South view
+
+	Lift int,
 	Parking varchar(3), --YES/NO
 	ElectricityBackup varchar(3), --Yes/No
 	CCTVSecurity varchar(3), --Yes/No
 	Intercom varchar(3) --Yes/No
 );
-
+INSERT INTO Property VALUES ('1', '3000', null, 'Sample room', 'Rent', 'Available', '10000', null, null, '1600', '3', '2', '2', '', '0', 'Yes', 'No', 'No', 'Yes');
+SELECT * FROM Property;
 
 --TrUncate TABLE client;
 --delete from owner where OwnerID='1001';
 --delete from Address where AddressID='6';
+--Drop table Property;
+
 
 SELECT * FROM Address WHERE Block='' AND Sector='';
 SELECT * FROM Users WHERE (Email='arif.ishan05@gmail.com' OR Phone='01996846517') AND Password='1234';
