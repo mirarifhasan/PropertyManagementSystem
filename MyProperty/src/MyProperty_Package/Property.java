@@ -43,6 +43,30 @@ public class Property {
         this.img = null;
     }
 
+    public Property(int PropertyID, int AddressID, int OwnerID, int BuyerID, int RentalPrice, int AdvancePrice, int Area, int Bedroom, int Bathroom, int Balcony, int Lift, String Title, String Type, String Status, String MainView, String Parking, String ElectricityBackup, String CCTVSecurity, String Intercom, String Description, byte[] img) {
+        this.PropertyID = PropertyID;
+        this.AddressID = AddressID;
+        this.OwnerID = OwnerID;
+        this.BuyerID = BuyerID;
+        this.RentalPrice = RentalPrice;
+        this.AdvancePrice = AdvancePrice;
+        this.Area = Area;
+        this.Bedroom = Bedroom;
+        this.Bathroom = Bathroom;
+        this.Balcony = Balcony;
+        this.Lift = Lift;
+        this.Title = Title;
+        this.Type = Type;
+        this.Status = Status;
+        this.MainView = MainView;
+        this.Parking = Parking;
+        this.ElectricityBackup = ElectricityBackup;
+        this.CCTVSecurity = CCTVSecurity;
+        this.Intercom = Intercom;
+        this.Description = Description;
+        this.img = img;
+    }
+
     public Property(int PropertyID, int OwnerID, String Title, String Type, String Status, int RentalPrice) {
         this.PropertyID = PropertyID;
         this.OwnerID = OwnerID;

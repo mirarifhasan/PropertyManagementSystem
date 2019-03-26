@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,6 +28,7 @@ public class Profile extends javax.swing.JFrame {
     }
     
     Users user;
+    Property property;
     
     Profile(Users user) {
         initComponents();
@@ -196,6 +198,11 @@ public class Profile extends javax.swing.JFrame {
 
         UpdateButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         UpdateButton.setText("Update");
+        UpdateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateButtonActionPerformed(evt);
+            }
+        });
         jPanel1.add(UpdateButton);
         UpdateButton.setBounds(290, 460, 73, 35);
 
@@ -264,6 +271,34 @@ public class Profile extends javax.swing.JFrame {
         new PropertyForm(user).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_AddPropertyButtonActionPerformed
+
+    private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
+        // TODO add your handling code here:
+        int id=0;
+        String sql;
+        
+        try{ id = Integer.parseInt(UpdateTextField.getText().trim());}
+        catch(Exception e){ JOptionPane.showMessageDialog(this, "Wrong input");}
+        
+        try {
+            ConnectMSSQL obj = new ConnectMSSQL();
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            obj.connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=PropertyManagementSystemDB;selectMethod=cursor", "sa", "123456");
+            Statement statement = obj.connection.createStatement();
+
+            sql = "SELECT * FROM Property WHERE PropertyID='"+id+"' AND OwnerID='"+user.getUsersID()+"';";
+            ResultSet rs = statement.executeQuery(sql);
+            
+            if(rs.next()){
+                property = new Property(rs.getInt("PropertyID"), rs.getInt("AddressID"), rs.getInt("OwnerID"), rs.getInt("BuyerID"), rs.getInt("RentalPrice"), rs.getInt("AdvancePrice"), rs.getInt("Area"), rs.getInt("Bedroom"), rs.getInt("Bathroom"), rs.getInt("Balcony"), rs.getInt("Lift"), rs.getString("Title"), rs.getString("Type"), rs.getString("Status"), rs.getString("MainView"), rs.getString("Parking"), rs.getString("ElectricityBackup"), rs.getString("CCTVSecurity"), rs.getString("Intercom"), rs.getString("Description"), rs.getBytes("Img"));         
+            }
+            else if(id!=0 && !rs.next())
+                JOptionPane.showMessageDialog(this, "You don't have permission");
+            
+            new PropertyForm(property, user).setVisible(true);
+            this.setVisible(false);
+        }catch(Exception e){}
+    }//GEN-LAST:event_UpdateButtonActionPerformed
 
     /**
      * @param args the command line arguments

@@ -44,6 +44,68 @@ public class PropertyForm extends javax.swing.JFrame {
         this.user = user;
     }
 
+    PropertyForm(Property property, Users user) {
+        initComponents();
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        this.user = user;
+        this.property = property;
+        
+        AddPropertyButton.setText("Update");
+        this.property = property;
+        getAllFields();
+    }
+
+    private void getAllFields() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TitleTextField.setText(property.getTitle());
+        TypeComboBox.setSelectedItem(property.getType());
+        StatusComboBox.setSelectedItem(property.getStatus());
+        RentalPriceTextField.setText(String.valueOf(property.getRentalPrice()));
+        AdvancePriceTextField.setText(String.valueOf(property.getAdvancePrice()));
+        
+        AreaSqftTextField.setText(String.valueOf(property.getArea()));
+        BedroomComboBox.setSelectedItem(String.valueOf(property.getBedroom()));
+        BathroomComboBox.setSelectedItem(String.valueOf(property.getBathroom()));
+        BalconyComboBox.setSelectedItem(String.valueOf(property.getBalcony()));
+        ViewComboBox.setSelectedItem(String.valueOf(property.getMainView()));
+        
+        LiftComboBox.setSelectedItem(String.valueOf(property.getLift()));
+        ParkingComboBox.setSelectedItem(String.valueOf(property.getParking()));
+        ElectricityComboBox.setSelectedItem(String.valueOf(property.getElectricityBackup()));
+        IntercomComboBox.setSelectedItem(String.valueOf(property.getIntercom()));
+        CCTVComboBox.setSelectedItem(String.valueOf(property.getCCTVSecurity()));
+        
+        DescriptionTextPane.setText(property.getDescription());
+        
+        try {
+            ConnectMSSQL obj = new ConnectMSSQL();
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            obj.connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=PropertyManagementSystemDB;selectMethod=cursor", "sa", "123456");
+            Statement statement = obj.connection.createStatement();
+
+            //Getting Rows of Address table
+            String sql = "SELECT * FROM Address WHERE AddressID='"+property.getAddressID()+ "';";
+            ResultSet rs = statement.executeQuery(sql);
+            rs.next();
+            
+            address.setAddressID(rs.getInt("AddressID"));
+            address.setCity(rs.getString("City"));
+            address.setArea(rs.getString("Area"));
+            address.setRoad(rs.getString("Road"));
+            address.setBlock(rs.getString("Block"));
+            address.setSector(rs.getString("Sector"));
+            address.setHouse(rs.getString("House"));
+            
+            CityTextField.setText(address.getCity());
+            AreaTextField.setText(address.getArea());
+            RoadTextField.setText(address.getRoad());
+            BlockTextField.setText(address.getBlock());
+            SectorTextField.setText(address.getSector());
+            HouseTextField.setText(address.getHouse());
+        }catch(Exception e){}
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -405,10 +467,23 @@ public class PropertyForm extends javax.swing.JFrame {
     }//GEN-LAST:event_BackButtonActionPerformed
     
     private void AddPropertyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddPropertyButtonActionPerformed
-            
+
+        if(AddPropertyButton.getText() == "Update"){
+            ConnectMSSQL obj = new ConnectMSSQL();
+            String sql = null;
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                obj.connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=PropertyManagementSystemDB;selectMethod=cursor", "sa", "123456");
+                Statement statement = obj.connection.createStatement();
+                
+                sql = "DELETE FROM Property WHERE PropertyID='"+property.getPropertyID()+"';";
+                statement.execute(sql);
+                
+            }catch(Exception e){}     
+        }
+        
         ArrayList<String> emptyFields = new ArrayList<String>();
 
-        
         if(TitleTextField.getText().trim().isEmpty()) emptyFields.add("Title");
         else property.setTitle(TitleTextField.getText().trim());
 
@@ -547,7 +622,7 @@ public class PropertyForm extends javax.swing.JFrame {
             property.setImg(pimg);
         }
         catch(Exception e){
-            
+            System.out.println(e);
         }
         
     }//GEN-LAST:event_imageButtonActionPerformed
@@ -642,6 +717,5 @@ public class PropertyForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
-
 
 }
