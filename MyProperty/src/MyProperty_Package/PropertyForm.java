@@ -10,6 +10,10 @@ import java.awt.List;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -399,7 +403,7 @@ public class PropertyForm extends javax.swing.JFrame {
         new Profile(user).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BackButtonActionPerformed
-
+    
     private void AddPropertyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddPropertyButtonActionPerformed
             
         ArrayList<String> emptyFields = new ArrayList<String>();
@@ -444,24 +448,78 @@ public class PropertyForm extends javax.swing.JFrame {
         if(CCTVComboBox.getSelectedItem().toString() == "Select") emptyFields.add("CCTV");
         else property.setCCTVSecurity(CCTVComboBox.getSelectedItem().toString());
         
+        if(!DescriptionTextPane.getText().isEmpty()) property.setDescription(DescriptionTextPane.getText().trim());
         
-        boolean b = true;
-        if(CityTextField.getText().trim().isEmpty()) b = false;
+        if(CityTextField.getText().trim().isEmpty()) emptyFields.add("City");
             address.setCity(CityTextField.getText().trim());
-        if(AreaTextField.getText().trim().isEmpty()) b = false;
+        if(AreaTextField.getText().trim().isEmpty()) emptyFields.add("Area");
             address.setArea(AreaTextField.getText().trim());
         address.setSector(SectorTextField.getText().trim());
         address.setBlock(BlockTextField.getText().trim());
         address.setRoad(RoadTextField.getText().trim());
-        if(HouseTextField.getText().trim().isEmpty()) b = false;
+        if(HouseTextField.getText().trim().isEmpty()) emptyFields.add("House");
             address.setHouse(HouseTextField.getText().trim());
-        
-        if(!b)
-            JOptionPane.showMessageDialog(this, "Must fill city, area and house fields");
-        
+
         
         if(emptyFields.isEmpty()){
-            //SQL
+            ConnectMSSQL obj = new ConnectMSSQL();
+            String sql = null;
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                obj.connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=PropertyManagementSystemDB;selectMethod=cursor", "sa", "123456");
+
+                Statement statement = obj.connection.createStatement();
+                
+                //Getting Rows of Address table
+                sql = "SELECT * FROM Address WHERE City='" + address.getCity() + "' AND Area='" + address.getArea() + "' AND Road='" + address.getRoad() + "' AND Block='" + address.getBlock() + "' AND Sector='" + address.getSector() + "' AND House='" + address.getHouse() +"';";
+                ResultSet resultSet = statement.executeQuery(sql);
+                
+                //Checking if the address already exists
+                if(resultSet.next())   //if exists
+                    address.setAddressID(resultSet.getInt("AddressID"));
+                else {
+                    //Address doesn't exist, then creat a row in address table
+                    sql = "INSERT INTO Address VALUES ('" + address.getCity() + "', '" + address.getArea() + "', '" + address.getRoad() + "', '"+ address.getBlock() + "', '" + address.getSector() + "', '"+ address.getHouse() + "');";
+                    statement.execute(sql);
+                    
+                    sql = "SELECT * FROM Address WHERE City='" + address.getCity() + "' AND Area='" + address.getArea() + "' AND Road='" + address.getRoad() + "' AND Block='" + address.getBlock() + "' AND Sector='" + address.getSector() + "' AND House='" + address.getHouse() +"';";
+                    resultSet = statement.executeQuery(sql);
+                    
+                    resultSet.next();
+                    address.setAddressID(resultSet.getInt("AddressID"));
+                }
+
+                sql = "INSERT INTO Property(AddressID, OwnerID, Title, Type, Status, RentalPrice, AdvancePrice, Img, Area, Bedroom, Bathroom, Balcony, MainView, Lift, Parking, ElectricityBackup, CCTVSecurity, Intercom, Description) "
+                        + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                PreparedStatement pst = obj.connection.prepareStatement(sql);
+                pst.setInt(1, address.getAddressID());
+                pst.setInt(2, user.getUsersID());
+                pst.setString(3, property.getTitle());
+                pst.setString(4, property.getType());
+                pst.setString(5, property.getStatus());
+                pst.setInt(6, property.getRentalPrice());
+                pst.setInt(7, property.getAdvancePrice());
+                pst.setBytes(8, property.getImg());
+                pst.setInt(9, property.getArea());
+                pst.setInt(10, property.getBedroom());
+                pst.setInt(11, property.getBathroom());
+                pst.setInt(12, property.getBalcony());
+                pst.setString(13, property.getMainView());
+                pst.setInt(14, property.getLift());
+                pst.setString(15, property.getParking());
+                pst.setString(16, property.getElectricityBackup());
+                pst.setString(17, property.getCCTVSecurity());
+                pst.setString(18, property.getIntercom());
+                pst.setString(19, property.getDescription());
+                pst.executeUpdate();
+                
+
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }
+            new Profile(user).setVisible(true);
+            this.setVisible(false);
         }
         else JOptionPane.showMessageDialog(this, "Fill this fields: " + emptyFields);
             

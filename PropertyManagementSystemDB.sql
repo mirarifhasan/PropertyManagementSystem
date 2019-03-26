@@ -54,11 +54,14 @@ CREATE TABLE Property(
 	Parking varchar(3), --YES/NO
 	ElectricityBackup varchar(3), --Yes/No
 	CCTVSecurity varchar(3), --Yes/No
-	Intercom varchar(3) --Yes/No
+	Intercom varchar(3), --Yes/No
+
+	Description varchar(1000)
 );
-INSERT INTO Property VALUES ('1', '3000', null, 'Sample room', 'Rent', 'Available', '10000', null, null, '1600', '3', '2', '2', '', '0', 'Yes', 'No', 'No', 'Yes');
+INSERT INTO Property VALUES ('1', '3000', null, 'Sample room', 'Rent', 'Available', '10000', null, null, '1600', '3', '2', '2', '', '0', 'Yes', 'No', 'No', 'Yes', 'Good day.');
 SELECT * FROM Property;
 
+--TrUncate TABLE Property
 --TrUncate TABLE client;
 --delete from owner where OwnerID='1001';
 --delete from Address where AddressID='6';

@@ -15,7 +15,7 @@ public class Property {
 
     //Here all variables are Properties attribute
     private int PropertyID, AddressID, OwnerID, BuyerID, RentalPrice, AdvancePrice, Area, Bedroom, Bathroom, Balcony, Lift;
-    private String Title, Type, Status, MainView, Parking, ElectricityBackup, CCTVSecurity, Intercom;    
+    private String Title, Type, Status, MainView, Parking, ElectricityBackup, CCTVSecurity, Intercom, Description;    
     private byte[] img;
 
     
@@ -25,7 +25,7 @@ public class Property {
         this.OwnerID = -1;
         this.BuyerID = -1;
         this.RentalPrice = -1;
-        this.AdvancePrice = -1;
+        this.AdvancePrice = 0;
         this.Area = -1;
         this.Bedroom = -1;
         this.Bathroom = -1;
@@ -39,7 +39,17 @@ public class Property {
         this.ElectricityBackup = null;
         this.CCTVSecurity = null;
         this.Intercom = null;
+        this.Description = null;
         this.img = null;
+    }
+
+    public Property(int PropertyID, int OwnerID, String Title, String Type, String Status, int RentalPrice) {
+        this.PropertyID = PropertyID;
+        this.OwnerID = OwnerID;
+        this.RentalPrice = RentalPrice;
+        this.Title = Title;
+        this.Type = Type;
+        this.Status = Status;
     }
     
     public int getPropertyID() {
@@ -192,6 +202,14 @@ public class Property {
 
     public void setIntercom(String Intercom) {
         this.Intercom = Intercom;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String Description) {
+        this.Description = Description;
     }
 
     public byte[] getImg() {

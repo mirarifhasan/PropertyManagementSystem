@@ -6,6 +6,12 @@
 package MyProperty_Package;
 
 import java.awt.Color;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -30,7 +36,57 @@ public class Profile extends javax.swing.JFrame {
         NameLabel.setText("Hi, " + user.getFirstName() + " (User ID: " + user.getUsersID() + ")");
         jPanel1.setFocusable(true);
         
+        DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
+        leftRenderer.setHorizontalAlignment(DefaultTableCellRenderer.LEFT);
+        jTable1.getColumn("Property ID").setCellRenderer( leftRenderer );
+        jTable1.getColumn("Rental Price").setCellRenderer( leftRenderer );
+        
+        show_property();
     }
+    
+    public ArrayList<Property> propertyList(){
+        ArrayList<Property> propertyList = new ArrayList<>();
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            ConnectMSSQL obj = new ConnectMSSQL();
+            obj.connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=PropertyManagementSystemDB;selectMethod=cursor", "sa", "123456");
+
+            Statement statement = obj.connection.createStatement();
+            
+            String sql = "SELECT * FROM Property WHERE OwnerID='"+user.getUsersID()+"' or BuyerID='"+user.getUsersID()+"';";
+            ResultSet rs = statement.executeQuery(sql);
+            
+            Property property;
+            while(rs.next()){
+                property = new Property(rs.getInt("PropertyID"), rs.getInt("OwnerID"), rs.getString("Title"), rs.getString("Type"), rs.getString("Status"), rs.getInt("RentalPrice"));
+                propertyList.add(property);
+            }
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+        return propertyList;
+    }
+    
+    public void show_property(){
+        ArrayList<Property> list = propertyList();
+        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        Object[] row = new Object[6];
+        
+        for(int i=0; i<list.size(); i++){
+            row[0] = list.get(i).getPropertyID();
+            row[1] = list.get(i).getTitle();
+            row[2] = list.get(i).getType();
+            row[3] = list.get(i).getStatus();
+            row[4] = list.get(i).getRentalPrice();
+            
+            if(list.get(i).getOwnerID()== user.getUsersID())
+                row[5] = "Will sell";
+            else row[5] = "I took";
+            model.addRow(row);
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -97,14 +153,14 @@ public class Profile extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Property ID", "Title", "Type", "Status", "Rental Price"
+                "Property ID", "Title", "Type", "Status", "Rental Price", "Relation"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
