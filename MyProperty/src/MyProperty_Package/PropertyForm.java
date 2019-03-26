@@ -467,20 +467,6 @@ public class PropertyForm extends javax.swing.JFrame {
     }//GEN-LAST:event_BackButtonActionPerformed
     
     private void AddPropertyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddPropertyButtonActionPerformed
-
-        if(AddPropertyButton.getText() == "Update"){
-            ConnectMSSQL obj = new ConnectMSSQL();
-            String sql = null;
-            try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                obj.connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=PropertyManagementSystemDB;selectMethod=cursor", "sa", "123456");
-                Statement statement = obj.connection.createStatement();
-                
-                sql = "DELETE FROM Property WHERE PropertyID='"+property.getPropertyID()+"';";
-                statement.execute(sql);
-                
-            }catch(Exception e){}     
-        }
         
         ArrayList<String> emptyFields = new ArrayList<String>();
 
@@ -563,32 +549,40 @@ public class PropertyForm extends javax.swing.JFrame {
                     resultSet.next();
                     address.setAddressID(resultSet.getInt("AddressID"));
                 }
-
-                sql = "INSERT INTO Property(AddressID, OwnerID, Title, Type, Status, RentalPrice, AdvancePrice, Img, Area, Bedroom, Bathroom, Balcony, MainView, Lift, Parking, ElectricityBackup, CCTVSecurity, Intercom, Description) "
+                if(AddPropertyButton.getText()=="Update"){
+                    sql = "UPDATE Property set Title='"+property.getTitle()+"', Type='"+property.getType()+
+                            "', Status='"+property.getStatus()+"', RentalPrice='"+property.getRentalPrice()+"', AdvancePrice='"+property.getAdvancePrice()+"', Img='"+property.getImg()+
+                            "', Area='"+property.getArea()+"', Bedroom='"+property.getBedroom()+"', Bathroom='"+property.getBathroom()+"', Balcony='"+property.getBalcony()+"', MainView='"+property.getMainView()+"', Lift='"+property.getLift()+"', Parking='"+property.getParking()+
+                            "', ElectricityBackup='"+property.getElectricityBackup()+"', CCTVSecurity='"+property.getCCTVSecurity()+"', Intercom='"+property.getIntercom()+"', Description='"+property.getDescription()+"' WHERE PropertyID='"+property.getPropertyID()+"';";
+                    System.out.println(sql);
+                    statement.execute(sql);
+                }
+                    
+                else{
+                    sql = "INSERT INTO Property(AddressID, OwnerID, Title, Type, Status, RentalPrice, AdvancePrice, Img, Area, Bedroom, Bathroom, Balcony, MainView, Lift, Parking, ElectricityBackup, CCTVSecurity, Intercom, Description) "
                         + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-                PreparedStatement pst = obj.connection.prepareStatement(sql);
-                pst.setInt(1, address.getAddressID());
-                pst.setInt(2, user.getUsersID());
-                pst.setString(3, property.getTitle());
-                pst.setString(4, property.getType());
-                pst.setString(5, property.getStatus());
-                pst.setInt(6, property.getRentalPrice());
-                pst.setInt(7, property.getAdvancePrice());
-                pst.setBytes(8, property.getImg());
-                pst.setInt(9, property.getArea());
-                pst.setInt(10, property.getBedroom());
-                pst.setInt(11, property.getBathroom());
-                pst.setInt(12, property.getBalcony());
-                pst.setString(13, property.getMainView());
-                pst.setInt(14, property.getLift());
-                pst.setString(15, property.getParking());
-                pst.setString(16, property.getElectricityBackup());
-                pst.setString(17, property.getCCTVSecurity());
-                pst.setString(18, property.getIntercom());
-                pst.setString(19, property.getDescription());
-                pst.executeUpdate();
-                
-
+                    PreparedStatement pst = obj.connection.prepareStatement(sql);
+                    pst.setInt(1, address.getAddressID());
+                    pst.setInt(2, user.getUsersID());
+                    pst.setString(3, property.getTitle());
+                    pst.setString(4, property.getType());
+                    pst.setString(5, property.getStatus());
+                    pst.setInt(6, property.getRentalPrice());
+                    pst.setInt(7, property.getAdvancePrice());
+                    pst.setBytes(8, property.getImg());
+                    pst.setInt(9, property.getArea());
+                    pst.setInt(10, property.getBedroom());
+                    pst.setInt(11, property.getBathroom());
+                    pst.setInt(12, property.getBalcony());
+                    pst.setString(13, property.getMainView());
+                    pst.setInt(14, property.getLift());
+                    pst.setString(15, property.getParking());
+                    pst.setString(16, property.getElectricityBackup());
+                    pst.setString(17, property.getCCTVSecurity());
+                    pst.setString(18, property.getIntercom());
+                    pst.setString(19, property.getDescription());
+                    pst.executeUpdate();
+                }
             }
             catch(Exception e){
                 System.out.println(e);
