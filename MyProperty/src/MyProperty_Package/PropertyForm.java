@@ -7,6 +7,7 @@ package MyProperty_Package;
 
 import java.awt.Image;
 import java.awt.List;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -103,6 +105,18 @@ public class PropertyForm extends javax.swing.JFrame {
             BlockTextField.setText(address.getBlock());
             SectorTextField.setText(address.getSector());
             HouseTextField.setText(address.getHouse());
+            
+            //Image set code
+            String query = "SELECT Img FROM Property WHERE PropertyID='"+property.getPropertyID()+"';";
+            statement = (PreparedStatement) obj.connection.prepareStatement(query);
+            ResultSet result = statement.executeQuery(query);
+            
+            BufferedImage im = ImageIO.read(result.getBinaryStream(1));
+            ImageIcon image1 = new ImageIcon(im);
+            imageLabel.setIcon(image1);
+            getContentPane().add(imageLabel);
+            setVisible(true);
+            
         }catch(Exception e){}
     }
     
@@ -551,10 +565,9 @@ public class PropertyForm extends javax.swing.JFrame {
                 }
                 if(AddPropertyButton.getText()=="Update"){
                     sql = "UPDATE Property set Title='"+property.getTitle()+"', Type='"+property.getType()+
-                            "', Status='"+property.getStatus()+"', RentalPrice='"+property.getRentalPrice()+"', AdvancePrice='"+property.getAdvancePrice()+"', Img='"+property.getImg()+
+                            "', Status='"+property.getStatus()+"', RentalPrice='"+property.getRentalPrice()+"', AdvancePrice='"+property.getAdvancePrice()+
                             "', Area='"+property.getArea()+"', Bedroom='"+property.getBedroom()+"', Bathroom='"+property.getBathroom()+"', Balcony='"+property.getBalcony()+"', MainView='"+property.getMainView()+"', Lift='"+property.getLift()+"', Parking='"+property.getParking()+
                             "', ElectricityBackup='"+property.getElectricityBackup()+"', CCTVSecurity='"+property.getCCTVSecurity()+"', Intercom='"+property.getIntercom()+"', Description='"+property.getDescription()+"' WHERE PropertyID='"+property.getPropertyID()+"';";
-                    System.out.println(sql);
                     statement.execute(sql);
                 }
                     

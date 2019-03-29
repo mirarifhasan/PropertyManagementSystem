@@ -47,6 +47,25 @@ public class Home extends javax.swing.JFrame {
         LogoLabel = new javax.swing.JLabel();
         LoginButton = new javax.swing.JButton();
         SearchLabel = new javax.swing.JLabel();
+        PriceLabel = new javax.swing.JLabel();
+        PriceStartTextField = new javax.swing.JTextField();
+        toLabel = new javax.swing.JLabel();
+        PriceEndTextField = new javax.swing.JTextField();
+        BedroomLabel = new javax.swing.JLabel();
+        BedroomTextField = new javax.swing.JTextField();
+        AreaSqftLabel = new javax.swing.JLabel();
+        AreaStartTextField = new javax.swing.JTextField();
+        toLabel2 = new javax.swing.JLabel();
+        AreaEndTextField = new javax.swing.JTextField();
+        FindButton = new javax.swing.JButton();
+        CityLabel = new javax.swing.JLabel();
+        AreaLabel = new javax.swing.JLabel();
+        SectorLabel = new javax.swing.JLabel();
+        BlockLabel = new javax.swing.JLabel();
+        CityTextField = new javax.swing.JTextField();
+        AreaTextField = new javax.swing.JTextField();
+        SectorTextField = new javax.swing.JTextField();
+        BlockTextField = new javax.swing.JTextField();
         BGLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -71,12 +90,169 @@ public class Home extends javax.swing.JFrame {
         jPanel1.add(LoginButton);
         LoginButton.setBounds(770, 50, 160, 40);
 
-        SearchLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        SearchLabel.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         SearchLabel.setForeground(new java.awt.Color(255, 255, 255));
         SearchLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         SearchLabel.setText("Search properties for rent and sell in Bangladesh");
         jPanel1.add(SearchLabel);
-        SearchLabel.setBounds(300, 150, 400, 40);
+        SearchLabel.setBounds(250, 130, 500, 40);
+
+        PriceLabel.setBackground(new java.awt.Color(255, 255, 255));
+        PriceLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        PriceLabel.setForeground(new java.awt.Color(255, 255, 255));
+        PriceLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        PriceLabel.setText("Price");
+        jPanel1.add(PriceLabel);
+        PriceLabel.setBounds(390, 260, 37, 30);
+
+        PriceStartTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        PriceStartTextField.setText("0");
+        PriceStartTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                PriceStartTextFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                PriceStartTextFieldFocusLost(evt);
+            }
+        });
+        jPanel1.add(PriceStartTextField);
+        PriceStartTextField.setBounds(440, 260, 80, 30);
+
+        toLabel.setBackground(new java.awt.Color(255, 255, 255));
+        toLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        toLabel.setForeground(new java.awt.Color(255, 255, 255));
+        toLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        toLabel.setText("to");
+        jPanel1.add(toLabel);
+        toLabel.setBounds(530, 260, 16, 30);
+
+        PriceEndTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        PriceEndTextField.setText("Any");
+        PriceEndTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                PriceEndTextFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                PriceEndTextFieldFocusLost(evt);
+            }
+        });
+        jPanel1.add(PriceEndTextField);
+        PriceEndTextField.setBounds(560, 260, 80, 30);
+
+        BedroomLabel.setBackground(new java.awt.Color(255, 255, 255));
+        BedroomLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        BedroomLabel.setForeground(new java.awt.Color(255, 255, 255));
+        BedroomLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        BedroomLabel.setText("Bedroom");
+        jPanel1.add(BedroomLabel);
+        BedroomLabel.setBounds(360, 310, 71, 30);
+
+        BedroomTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        BedroomTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                BedroomTextFieldFocusGained(evt);
+            }
+        });
+        BedroomTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BedroomTextFieldActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BedroomTextField);
+        BedroomTextField.setBounds(440, 310, 60, 30);
+
+        AreaSqftLabel.setBackground(new java.awt.Color(255, 255, 255));
+        AreaSqftLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        AreaSqftLabel.setForeground(new java.awt.Color(255, 255, 255));
+        AreaSqftLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        AreaSqftLabel.setText("Area (Sq. Ft.)");
+        jPanel1.add(AreaSqftLabel);
+        AreaSqftLabel.setBounds(320, 360, 106, 30);
+
+        AreaStartTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        AreaStartTextField.setText("0");
+        AreaStartTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                AreaStartTextFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                AreaStartTextFieldFocusLost(evt);
+            }
+        });
+        jPanel1.add(AreaStartTextField);
+        AreaStartTextField.setBounds(440, 360, 80, 30);
+
+        toLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        toLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        toLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        toLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        toLabel2.setText("to");
+        jPanel1.add(toLabel2);
+        toLabel2.setBounds(530, 360, 16, 30);
+
+        AreaEndTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        AreaEndTextField.setText("Any");
+        AreaEndTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                AreaEndTextFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                AreaEndTextFieldFocusLost(evt);
+            }
+        });
+        AreaEndTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AreaEndTextFieldActionPerformed(evt);
+            }
+        });
+        jPanel1.add(AreaEndTextField);
+        AreaEndTextField.setBounds(560, 360, 80, 30);
+
+        FindButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        FindButton.setText("Find");
+        FindButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FindButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(FindButton);
+        FindButton.setBounds(440, 430, 120, 35);
+
+        CityLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        CityLabel.setForeground(new java.awt.Color(255, 255, 255));
+        CityLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        CityLabel.setText("City");
+        jPanel1.add(CityLabel);
+        CityLabel.setBounds(210, 200, 40, 30);
+
+        AreaLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        AreaLabel.setForeground(new java.awt.Color(255, 255, 255));
+        AreaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        AreaLabel.setText("Area");
+        jPanel1.add(AreaLabel);
+        AreaLabel.setBounds(370, 200, 40, 30);
+
+        SectorLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        SectorLabel.setForeground(new java.awt.Color(255, 255, 255));
+        SectorLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        SectorLabel.setText("Sector");
+        jPanel1.add(SectorLabel);
+        SectorLabel.setBounds(510, 200, 60, 30);
+
+        BlockLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        BlockLabel.setForeground(new java.awt.Color(255, 255, 255));
+        BlockLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        BlockLabel.setText("Block");
+        jPanel1.add(BlockLabel);
+        BlockLabel.setBounds(690, 200, 40, 30);
+        jPanel1.add(CityTextField);
+        CityTextField.setBounds(260, 200, 70, 30);
+        jPanel1.add(AreaTextField);
+        AreaTextField.setBounds(420, 200, 70, 30);
+        jPanel1.add(SectorTextField);
+        SectorTextField.setBounds(580, 200, 70, 30);
+        jPanel1.add(BlockTextField);
+        BlockTextField.setBounds(740, 200, 70, 30);
 
         BGLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyProperty_Package/Image/HomeBG.png"))); // NOI18N
         BGLabel.setText("di");
@@ -109,6 +285,165 @@ public class Home extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_LoginButtonActionPerformed
+
+    private void AreaEndTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AreaEndTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AreaEndTextFieldActionPerformed
+
+    private void BedroomTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BedroomTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BedroomTextFieldActionPerformed
+
+    private void PriceStartTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_PriceStartTextFieldFocusGained
+        // TODO add your handling code here:
+        if(PriceStartTextField.getText().equals("0"))
+            PriceStartTextField.setText("");
+    }//GEN-LAST:event_PriceStartTextFieldFocusGained
+
+    private void PriceStartTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_PriceStartTextFieldFocusLost
+        // TODO add your handling code here:
+        if(PriceStartTextField.getText().equals(""))
+            PriceStartTextField.setText("0");
+    }//GEN-LAST:event_PriceStartTextFieldFocusLost
+
+    private void PriceEndTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_PriceEndTextFieldFocusGained
+        // TODO add your handling code here:
+        if(PriceEndTextField.getText().equals("Any"))
+            PriceEndTextField.setText("");
+    }//GEN-LAST:event_PriceEndTextFieldFocusGained
+
+    private void BedroomTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_BedroomTextFieldFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BedroomTextFieldFocusGained
+
+    private void AreaStartTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_AreaStartTextFieldFocusGained
+        // TODO add your handling code here:
+        if(AreaStartTextField.getText().equals("0"))    
+            AreaStartTextField.setText("");
+    }//GEN-LAST:event_AreaStartTextFieldFocusGained
+
+    private void AreaEndTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_AreaEndTextFieldFocusGained
+        // TODO add your handling code here:
+        if(AreaEndTextField.getText().equals("Any"))
+            AreaEndTextField.setText("");
+    }//GEN-LAST:event_AreaEndTextFieldFocusGained
+
+    private void PriceEndTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_PriceEndTextFieldFocusLost
+        // TODO add your handling code here:
+        if(PriceEndTextField.getText().equals(""))
+            PriceEndTextField.setText("Any");
+    }//GEN-LAST:event_PriceEndTextFieldFocusLost
+
+    private void AreaStartTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_AreaStartTextFieldFocusLost
+        // TODO add your handling code here:
+        if(AreaStartTextField.getText().equals(""))
+            AreaStartTextField.setText("0");
+    }//GEN-LAST:event_AreaStartTextFieldFocusLost
+
+    private void AreaEndTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_AreaEndTextFieldFocusLost
+        // TODO add your handling code here:
+        if(AreaEndTextField.getText().equals(""))
+            AreaEndTextField.setText("Any");
+    }//GEN-LAST:event_AreaEndTextFieldFocusLost
+
+    public String readySQL(){
+        //Deal with Location
+        String arr[] = {"","","","","","","","",""};
+        String arr2[] = {"City", "Area", "Sector", "Block", "RentalPrice", "", "Bedroom", "Area", ""};
+        
+        arr[0] = CityTextField.getText().trim();
+        arr[1] = AreaTextField.getText().trim();
+        arr[2] = SectorTextField.getText().trim();
+        arr[3] = BlockTextField.getText().trim();
+        arr[4] = PriceStartTextField.getText().trim();
+        arr[5] = PriceEndTextField.getText().trim();
+        arr[6] = BedroomTextField.getText().trim();
+        arr[7] = AreaStartTextField.getText().trim();
+        arr[8] = AreaEndTextField.getText().trim();
+        
+        String sql = "Select * from Property";
+        
+        boolean b=false, cloc=true, price=false, loc=false;
+        int c = 0, index = -3;
+        
+        for(int i=0; i<=8; i++){
+            if((i>=0 && i<=3) && !arr[i].equals("")){
+                c++;
+            }
+            if(!arr[i].equals("") && !arr[i].equals("0") && !arr[i].equals("Any")){
+                if(!b)sql = sql + " where ";
+                b=true;
+            }          
+            if(c==1 && cloc){
+                if(i==0) sql = sql + "(City='"+arr[0]+"'";
+                if(i==1) sql = sql + "(Area='"+arr[1]+"'";
+                if(i==2) sql = sql + "(Sector='"+arr[2]+"'";
+                if(i==3) sql = sql + "(Block='"+arr[3]+"'";
+                index=i; 
+                cloc=false; loc=true;
+            }
+        }
+        c--;
+        index++;
+        
+        for( ; c>0 ; index++){ 
+            if(index<=3 && !arr[index].equals("")){
+                sql = sql + " and "+arr2[index]+"='"+arr[index]+"'";
+                c--;
+            }
+        }
+        if(!cloc) sql = sql+")";
+        //End of dealing with location
+        
+        //Dealing with price range        
+        if(!arr[4].equals("0") || !arr[5].equals("Any")){
+            price=true;
+            if(!cloc) sql = sql + " and ";
+            
+            if(!arr[4].equals("0") && !arr[5].equals("Any"))
+                sql = sql + "RentalPrice between ("+Integer.parseInt(arr[4])+" and "+Integer.parseInt(arr[5])+")";
+            else if(!arr[4].equals("0"))
+                sql = sql + "RentalPrice >= "+Integer.parseInt(arr[4]);
+            else
+                sql = sql + "RentalPrice <= "+Integer.parseInt(arr[5]);
+        }
+        
+        //Dealing with Bedroom
+        boolean bedc=false;
+        
+        if(!arr[6].equals("")){
+            if(price || !cloc) sql = sql + " and ";
+            sql = sql + "Bedroom='"+Integer.parseInt(arr[6])+"'";
+            bedc=true;
+        }
+
+        //Dealing with Area
+        if(!arr[7].equals("0") || !arr[8].equals("Any")){
+            if(price || bedc || !cloc)
+                sql = sql + " and ";
+            
+            if(!arr[7].equals("0") && !arr[8].equals("Any"))
+                sql = sql + "Area between ("+Integer.parseInt(arr[7])+" and "+Integer.parseInt(arr[8])+")";
+            else if(!arr[7].equals("0"))
+                sql = sql + "Area >= "+Integer.parseInt(arr[7]);
+            else
+                sql = sql + "Area <= "+Integer.parseInt(arr[8]);
+        }
+        
+        return sql;
+    }
+    
+    private void FindButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FindButtonActionPerformed
+        
+        String sql = readySQL();
+        System.out.println(sql);
+
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_FindButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,10 +484,29 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField AreaEndTextField;
+    private javax.swing.JLabel AreaLabel;
+    private javax.swing.JLabel AreaSqftLabel;
+    private javax.swing.JTextField AreaStartTextField;
+    private javax.swing.JTextField AreaTextField;
     private javax.swing.JLabel BGLabel;
+    private javax.swing.JLabel BedroomLabel;
+    private javax.swing.JTextField BedroomTextField;
+    private javax.swing.JLabel BlockLabel;
+    private javax.swing.JTextField BlockTextField;
+    private javax.swing.JLabel CityLabel;
+    private javax.swing.JTextField CityTextField;
+    private javax.swing.JButton FindButton;
     private javax.swing.JButton LoginButton;
     private javax.swing.JLabel LogoLabel;
+    private javax.swing.JTextField PriceEndTextField;
+    private javax.swing.JLabel PriceLabel;
+    private javax.swing.JTextField PriceStartTextField;
     private javax.swing.JLabel SearchLabel;
+    private javax.swing.JLabel SectorLabel;
+    private javax.swing.JTextField SectorTextField;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel toLabel;
+    private javax.swing.JLabel toLabel2;
     // End of variables declaration//GEN-END:variables
 }

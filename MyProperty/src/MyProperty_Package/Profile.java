@@ -254,16 +254,14 @@ public class Profile extends javax.swing.JFrame {
 
     private void UpdateTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_UpdateTextFieldFocusGained
         // TODO add your handling code here:
-        UpdateTextField.setText("");
-        
+            UpdateTextField.setText("");
     }//GEN-LAST:event_UpdateTextFieldFocusGained
 
     private void UpdateTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_UpdateTextFieldFocusLost
         // TODO add your handling code here:
         
-        if(UpdateTextField.getText().toString() == ""){
-            UpdateTextField.setText("Property ID");
-        }
+            UpdateTextField.setText("Enter Porperty ID for update");
+            
     }//GEN-LAST:event_UpdateTextFieldFocusLost
 
     private void AddPropertyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddPropertyButtonActionPerformed
