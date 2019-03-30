@@ -127,7 +127,7 @@
                   <Table columnCount="6" rowCount="0">
                     <Column editable="false" title="Property ID" type="java.lang.Integer"/>
                     <Column editable="false" title="Title" type="java.lang.String"/>
-                    <Column editable="false" title="Type" type="java.lang.String"/>
+                    <Column editable="false" title="Purpose" type="java.lang.String"/>
                     <Column editable="false" title="Status" type="java.lang.String"/>
                     <Column editable="false" title="Rental Price" type="java.lang.Integer"/>
                     <Column editable="false" title="Relation" type="java.lang.String"/>

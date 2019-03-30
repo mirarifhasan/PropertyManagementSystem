@@ -61,7 +61,7 @@ public class PropertyForm extends javax.swing.JFrame {
     private void getAllFields() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         TitleTextField.setText(property.getTitle());
-        TypeComboBox.setSelectedItem(property.getType());
+        PurposeComboBox.setSelectedItem(property.getPurpose());
         StatusComboBox.setSelectedItem(property.getStatus());
         RentalPriceTextField.setText(String.valueOf(property.getRentalPrice()));
         AdvancePriceTextField.setText(String.valueOf(property.getAdvancePrice()));
@@ -133,8 +133,8 @@ public class PropertyForm extends javax.swing.JFrame {
         PropertyIDLabel = new javax.swing.JLabel();
         TitleLabel = new javax.swing.JLabel();
         TitleTextField = new javax.swing.JTextField();
-        TypeLabel = new javax.swing.JLabel();
-        TypeComboBox = new javax.swing.JComboBox<>();
+        PurposeLabel = new javax.swing.JLabel();
+        PurposeComboBox = new javax.swing.JComboBox<>();
         Status = new javax.swing.JLabel();
         StatusComboBox = new javax.swing.JComboBox<>();
         RentalPriceLabel = new javax.swing.JLabel();
@@ -204,17 +204,17 @@ public class PropertyForm extends javax.swing.JFrame {
         jPanel1.add(TitleTextField);
         TitleTextField.setBounds(170, 70, 750, 30);
 
-        TypeLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        TypeLabel.setForeground(new java.awt.Color(255, 255, 255));
-        TypeLabel.setText("Type:");
-        jPanel1.add(TypeLabel);
-        TypeLabel.setBounds(80, 110, 85, 30);
+        PurposeLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        PurposeLabel.setForeground(new java.awt.Color(255, 255, 255));
+        PurposeLabel.setText("Purpose:");
+        jPanel1.add(PurposeLabel);
+        PurposeLabel.setBounds(80, 110, 85, 30);
 
-        TypeComboBox.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        TypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Rent", "Sell", "Both" }));
-        TypeComboBox.setToolTipText("");
-        jPanel1.add(TypeComboBox);
-        TypeComboBox.setBounds(170, 110, 110, 30);
+        PurposeComboBox.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        PurposeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Rent", "Sell", "Both" }));
+        PurposeComboBox.setToolTipText("");
+        jPanel1.add(PurposeComboBox);
+        PurposeComboBox.setBounds(170, 110, 110, 30);
 
         Status.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         Status.setForeground(new java.awt.Color(255, 255, 255));
@@ -487,8 +487,8 @@ public class PropertyForm extends javax.swing.JFrame {
         if(TitleTextField.getText().trim().isEmpty()) emptyFields.add("Title");
         else property.setTitle(TitleTextField.getText().trim());
 
-        if(TypeComboBox.getSelectedItem().toString() == "Select") emptyFields.add("Type");
-        else property.setType(TypeComboBox.getSelectedItem().toString());
+        if(PurposeComboBox.getSelectedItem().toString() == "Select") emptyFields.add("Type");
+        else property.setPurpose(PurposeComboBox.getSelectedItem().toString());
 
         property.setStatus(StatusComboBox.getSelectedItem().toString());
 
@@ -564,7 +564,7 @@ public class PropertyForm extends javax.swing.JFrame {
                     address.setAddressID(resultSet.getInt("AddressID"));
                 }
                 if(AddPropertyButton.getText()=="Update"){
-                    sql = "UPDATE Property set Title='"+property.getTitle()+"', Type='"+property.getType()+
+                    sql = "UPDATE Property set Title='"+property.getTitle()+"', Purpose='"+property.getPurpose()+
                             "', Status='"+property.getStatus()+"', RentalPrice='"+property.getRentalPrice()+"', AdvancePrice='"+property.getAdvancePrice()+
                             "', Area='"+property.getArea()+"', Bedroom='"+property.getBedroom()+"', Bathroom='"+property.getBathroom()+"', Balcony='"+property.getBalcony()+"', MainView='"+property.getMainView()+"', Lift='"+property.getLift()+"', Parking='"+property.getParking()+
                             "', ElectricityBackup='"+property.getElectricityBackup()+"', CCTVSecurity='"+property.getCCTVSecurity()+"', Intercom='"+property.getIntercom()+"', Description='"+property.getDescription()+"' WHERE PropertyID='"+property.getPropertyID()+"';";
@@ -572,13 +572,13 @@ public class PropertyForm extends javax.swing.JFrame {
                 }
                     
                 else{
-                    sql = "INSERT INTO Property(AddressID, OwnerID, Title, Type, Status, RentalPrice, AdvancePrice, Img, Area, Bedroom, Bathroom, Balcony, MainView, Lift, Parking, ElectricityBackup, CCTVSecurity, Intercom, Description) "
+                    sql = "INSERT INTO Property(AddressID, OwnerID, Title, Purpose, Status, RentalPrice, AdvancePrice, Img, Area, Bedroom, Bathroom, Balcony, MainView, Lift, Parking, ElectricityBackup, CCTVSecurity, Intercom, Description) "
                         + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                     PreparedStatement pst = obj.connection.prepareStatement(sql);
                     pst.setInt(1, address.getAddressID());
                     pst.setInt(2, user.getUsersID());
                     pst.setString(3, property.getTitle());
-                    pst.setString(4, property.getType());
+                    pst.setString(4, property.getPurpose());
                     pst.setString(5, property.getStatus());
                     pst.setInt(6, property.getRentalPrice());
                     pst.setInt(7, property.getAdvancePrice());
@@ -704,6 +704,8 @@ public class PropertyForm extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> ParkingComboBox;
     private javax.swing.JLabel ParkingLabel;
     private javax.swing.JLabel PropertyIDLabel;
+    private javax.swing.JComboBox<String> PurposeComboBox;
+    private javax.swing.JLabel PurposeLabel;
     private javax.swing.JLabel RentalPriceLabel;
     private javax.swing.JTextField RentalPriceTextField;
     private javax.swing.JLabel RoadLabel;
@@ -714,8 +716,6 @@ public class PropertyForm extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> StatusComboBox;
     private javax.swing.JLabel TitleLabel;
     private javax.swing.JTextField TitleTextField;
-    private javax.swing.JComboBox<String> TypeComboBox;
-    private javax.swing.JLabel TypeLabel;
     private javax.swing.JComboBox<String> ViewComboBox;
     private javax.swing.JLabel ViewLabel;
     private javax.swing.JButton imageButton;

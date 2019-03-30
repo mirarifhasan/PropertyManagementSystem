@@ -60,7 +60,7 @@ public class Profile extends javax.swing.JFrame {
             
             Property property;
             while(rs.next()){
-                property = new Property(rs.getInt("PropertyID"), rs.getInt("OwnerID"), rs.getString("Title"), rs.getString("Type"), rs.getString("Status"), rs.getInt("RentalPrice"));
+                property = new Property(rs.getInt("PropertyID"), rs.getInt("OwnerID"), rs.getString("Title"), rs.getString("Purpose"), rs.getString("Status"), rs.getInt("RentalPrice"));
                 propertyList.add(property);
             }
         }
@@ -78,12 +78,12 @@ public class Profile extends javax.swing.JFrame {
         for(int i=0; i<list.size(); i++){
             row[0] = list.get(i).getPropertyID();
             row[1] = list.get(i).getTitle();
-            row[2] = list.get(i).getType();
+            row[2] = list.get(i).getPurpose();
             row[3] = list.get(i).getStatus();
             row[4] = list.get(i).getRentalPrice();
             
             if(list.get(i).getOwnerID()== user.getUsersID())
-                row[5] = "Will sell";
+                row[5] = "I Offering";
             else row[5] = "I took";
             model.addRow(row);
         }
@@ -155,7 +155,7 @@ public class Profile extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Property ID", "Title", "Type", "Status", "Rental Price", "Relation"
+                "Property ID", "Title", "Purpose", "Status", "Rental Price", "Relation"
             }
         ) {
             Class[] types = new Class [] {
@@ -259,9 +259,7 @@ public class Profile extends javax.swing.JFrame {
 
     private void UpdateTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_UpdateTextFieldFocusLost
         // TODO add your handling code here:
-        
-            UpdateTextField.setText("Enter Porperty ID for update");
-            
+
     }//GEN-LAST:event_UpdateTextFieldFocusLost
 
     private void AddPropertyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddPropertyButtonActionPerformed
@@ -288,7 +286,7 @@ public class Profile extends javax.swing.JFrame {
             ResultSet rs = statement.executeQuery(sql);
             
             if(rs.next()){
-                property = new Property(rs.getInt("PropertyID"), rs.getInt("AddressID"), rs.getInt("OwnerID"), rs.getInt("BuyerID"), rs.getInt("RentalPrice"), rs.getInt("AdvancePrice"), rs.getInt("Area"), rs.getInt("Bedroom"), rs.getInt("Bathroom"), rs.getInt("Balcony"), rs.getInt("Lift"), rs.getString("Title"), rs.getString("Type"), rs.getString("Status"), rs.getString("MainView"), rs.getString("Parking"), rs.getString("ElectricityBackup"), rs.getString("CCTVSecurity"), rs.getString("Intercom"), rs.getString("Description"), rs.getBytes("Img"));         
+                property = new Property(rs.getInt("PropertyID"), rs.getInt("AddressID"), rs.getInt("OwnerID"), rs.getInt("BuyerID"), rs.getInt("RentalPrice"), rs.getInt("AdvancePrice"), rs.getInt("Area"), rs.getInt("Bedroom"), rs.getInt("Bathroom"), rs.getInt("Balcony"), rs.getInt("Lift"), rs.getString("Title"), rs.getString("Purpose"), rs.getString("Status"), rs.getString("MainView"), rs.getString("Parking"), rs.getString("ElectricityBackup"), rs.getString("CCTVSecurity"), rs.getString("Intercom"), rs.getString("Description"), rs.getBytes("Img"));         
             }
             else if(id!=0 && !rs.next())
                 JOptionPane.showMessageDialog(this, "You don't have permission");

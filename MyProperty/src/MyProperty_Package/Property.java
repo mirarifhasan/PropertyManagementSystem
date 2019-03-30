@@ -15,7 +15,7 @@ public class Property {
 
     //Here all variables are Properties attribute
     private int PropertyID, AddressID, OwnerID, BuyerID, RentalPrice, AdvancePrice, Area, Bedroom, Bathroom, Balcony, Lift;
-    private String Title, Type, Status, MainView, Parking, ElectricityBackup, CCTVSecurity, Intercom, Description;    
+    private String Title, Purpose, Status, MainView, Parking, ElectricityBackup, CCTVSecurity, Intercom, Description;    
     private byte[] img;
 
     
@@ -32,7 +32,7 @@ public class Property {
         this.Balcony = -1;
         this.Lift = -1;
         this.Title = null;
-        this.Type = null;
+        this.Purpose = null;
         this.Status = null;
         this.MainView = null;
         this.Parking = null;
@@ -43,7 +43,7 @@ public class Property {
         this.img = null;
     }
 
-    public Property(int PropertyID, int AddressID, int OwnerID, int BuyerID, int RentalPrice, int AdvancePrice, int Area, int Bedroom, int Bathroom, int Balcony, int Lift, String Title, String Type, String Status, String MainView, String Parking, String ElectricityBackup, String CCTVSecurity, String Intercom, String Description, byte[] img) {
+    public Property(int PropertyID, int AddressID, int OwnerID, int BuyerID, int RentalPrice, int AdvancePrice, int Area, int Bedroom, int Bathroom, int Balcony, int Lift, String Title, String Purpose, String Status, String MainView, String Parking, String ElectricityBackup, String CCTVSecurity, String Intercom, String Description, byte[] img) {
         this.PropertyID = PropertyID;
         this.AddressID = AddressID;
         this.OwnerID = OwnerID;
@@ -56,7 +56,7 @@ public class Property {
         this.Balcony = Balcony;
         this.Lift = Lift;
         this.Title = Title;
-        this.Type = Type;
+        this.Purpose = Purpose;
         this.Status = Status;
         this.MainView = MainView;
         this.Parking = Parking;
@@ -67,14 +67,27 @@ public class Property {
         this.img = img;
     }
 
-    public Property(int PropertyID, int OwnerID, String Title, String Type, String Status, int RentalPrice) {
+    //Call from Prifile
+    public Property(int PropertyID, int OwnerID, String Title, String Purpose, String Status, int RentalPrice) {
         this.PropertyID = PropertyID;
         this.OwnerID = OwnerID;
         this.RentalPrice = RentalPrice;
         this.Title = Title;
-        this.Type = Type;
+        this.Purpose = Purpose;
         this.Status = Status;
     }
+    
+    //Call from Search Result
+    public Property(int PropertyID, int AddressID, String Purpose, int Area, int RentalPrice, int Bedroom){
+        this.PropertyID = PropertyID;
+        this.AddressID = AddressID;
+        this.Purpose = Purpose;
+        this.Area = Area;
+        this.RentalPrice = RentalPrice;
+        this.Bedroom = Bedroom;
+    }
+    //End of Search Result
+    
     
     public int getPropertyID() {
         return PropertyID;
@@ -172,12 +185,12 @@ public class Property {
         this.Title = Title;
     }
 
-    public String getType() {
-        return Type;
+    public String getPurpose() {
+        return Purpose;
     }
 
-    public void setType(String Type) {
-        this.Type = Type;
+    public void setPurpose(String Purpose) {
+        this.Purpose = Purpose;
     }
 
     public String getStatus() {

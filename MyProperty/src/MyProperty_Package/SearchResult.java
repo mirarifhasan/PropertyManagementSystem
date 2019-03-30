@@ -5,6 +5,14 @@
  */
 package MyProperty_Package;
 
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ASUS
@@ -18,6 +26,93 @@ public class SearchResult extends javax.swing.JFrame {
         initComponents();
     }
 
+    Users user;
+    String sql;
+    
+    SearchResult(Users user, String sql) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        initComponents();
+        
+        this.user = user;
+        this.sql = sql;
+        
+        DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
+        leftRenderer.setHorizontalAlignment(DefaultTableCellRenderer.LEFT);
+        jTable1.getColumn("Property ID").setCellRenderer( leftRenderer );
+        jTable1.getColumn("Rental Price").setCellRenderer( leftRenderer );
+        jTable1.getColumn("Serial").setCellRenderer( leftRenderer );
+        jTable1.getColumn("Area(Sq. Ft.)").setCellRenderer( leftRenderer );
+        jTable1.getColumn("Bedroom").setCellRenderer( leftRenderer );
+        
+        show_property();
+    }
+
+    public ArrayList<Property> propertyList(){
+        ArrayList<Property> propertyList = new ArrayList<>();
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            ConnectMSSQL obj = new ConnectMSSQL();
+            obj.connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=PropertyManagementSystemDB;selectMethod=cursor", "sa", "123456");
+
+            Statement statement = obj.connection.createStatement();
+            
+            ResultSet rs = statement.executeQuery(sql);
+            
+            while(rs.next()){
+
+                Property property = new Property(rs.getInt("PropertyID"), rs.getInt("AddressID"), rs.getString("Purpose"), rs.getInt("Area"),  rs.getInt("RentalPrice"),rs.getInt("Bedroom"));
+                propertyList.add(property);
+            }
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+        return propertyList;
+    }
+    
+    public String addressTableAdd(int addressID){
+        String loc = null;
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            ConnectMSSQL obj = new ConnectMSSQL();
+            obj.connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=PropertyManagementSystemDB;selectMethod=cursor", "sa", "123456");
+
+            Statement statement = obj.connection.createStatement();
+            
+            ResultSet rs = statement.executeQuery("Select * from Address where AddressID='"+addressID+"'");
+            rs.next();
+            
+            loc = rs.getString("Area")+", "+rs.getString("City");
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+        return loc;
+    }
+    
+    public void show_property(){
+        ArrayList<Property> list = propertyList();
+        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        Object[] row = new Object[7];
+        
+        if(list.size()<1)
+            JOptionPane.showMessageDialog(this, "No result found :(");
+        
+        
+        int sl_no = 1;
+        for(int i=0; i<list.size(); i++){
+            row[0] = sl_no++;
+            row[1] = list.get(i).getPropertyID();
+            row[2] = list.get(i).getPurpose();
+            row[3] = list.get(i).getArea();
+            row[4] = list.get(i).getRentalPrice();
+            row[5] = list.get(i).getBedroom();
+            row[6] = addressTableAdd(list.get(i).getAddressID());;
+            
+            model.addRow(row);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,7 +125,8 @@ public class SearchResult extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
+        TitleJabel = new javax.swing.JLabel();
+        BackButton = new javax.swing.JButton();
         BGLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -39,32 +135,48 @@ public class SearchResult extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Serial", "Property ID", "Purpose", "Area(Sq. Ft.)", "Rental Price", "Bedroom", "Address"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(50, 100, 900, 190);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Search Result");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(430, 55, 120, 30);
+        TitleJabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TitleJabel.setForeground(new java.awt.Color(255, 255, 255));
+        TitleJabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TitleJabel.setText("Search Result");
+        jPanel1.add(TitleJabel);
+        TitleJabel.setBounds(430, 55, 120, 30);
+
+        BackButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        BackButton.setText("Back");
+        BackButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BackButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BackButton);
+        BackButton.setBounds(50, 540, 90, 35);
 
         BGLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyProperty_Package/Image/searchResultBG.jpg"))); // NOI18N
         jPanel1.add(BGLabel);
@@ -83,6 +195,12 @@ public class SearchResult extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
+        // TODO add your handling code here:
+        new Home(user).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_BackButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -121,7 +239,8 @@ public class SearchResult extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BGLabel;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton BackButton;
+    private javax.swing.JLabel TitleJabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

@@ -38,7 +38,7 @@ CREATE TABLE Property(
 	BuyerID int,
 	
 	Title varchar(300) NOT NULL,
-	Type varchar(4) NOT NULL, --Rent/Sell/Both
+	Purpose varchar(4) NOT NULL, --Rent/Sell/Both
 	Status varchar(15) NOT NULL, --Available or not
 	RentalPrice int NOT NULL,
 	AdvancePrice int,
@@ -61,6 +61,8 @@ CREATE TABLE Property(
 INSERT INTO Property VALUES ('1', '3000', null, 'Sample room', 'Rent', 'Available', '10000', null, null, '1600', '3', '2', '2', '', '0', 'Yes', 'No', 'No', 'Yes', 'Good day.');
 SELECT * FROM Property;
 
+--Select * from Property where RentalPrice >= 100;
+--Select * from Property where Purpose='Rent'
 --TrUncate TABLE Property
 --TrUncate TABLE client;
 --delete from owner where OwnerID='1001';
