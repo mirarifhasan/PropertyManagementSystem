@@ -14,8 +14,8 @@ package MyProperty_Package;
 public class Property {
 
     //Here all variables are Properties attribute
-    private int PropertyID, AddressID, OwnerID, BuyerID, RentalPrice, AdvancePrice, Area, Bedroom, Bathroom, Balcony, Lift;
-    private String Title, Purpose, Status, MainView, Parking, ElectricityBackup, CCTVSecurity, Intercom, Description;    
+    private int PropertyID, AddressID, OwnerID, BuyerID, RentalPrice, AdvancePrice, SellingPrice, Area, Bedroom, Bathroom, Balcony, Lift;
+    private String Title, Purpose, Status, MainView, Parking, ElectricityBackup, CCTVSecurity, Intercom, Description, RentTo;    
     private byte[] img;
 
     
@@ -43,7 +43,7 @@ public class Property {
         this.img = null;
     }
 
-    public Property(int PropertyID, int AddressID, int OwnerID, int BuyerID, int RentalPrice, int AdvancePrice, int Area, int Bedroom, int Bathroom, int Balcony, int Lift, String Title, String Purpose, String Status, String MainView, String Parking, String ElectricityBackup, String CCTVSecurity, String Intercom, String Description, byte[] img) {
+    public Property(int PropertyID, int AddressID, int OwnerID, int BuyerID, int RentalPrice, int AdvancePrice, int Area, int Bedroom, int Bathroom, int Balcony, int Lift, String Title, String Purpose, String Status, String MainView, String Parking, String ElectricityBackup, String CCTVSecurity, String Intercom, String Description, byte[] img, String RentTo) {
         this.PropertyID = PropertyID;
         this.AddressID = AddressID;
         this.OwnerID = OwnerID;
@@ -65,28 +65,29 @@ public class Property {
         this.Intercom = Intercom;
         this.Description = Description;
         this.img = img;
+        this.RentTo = RentTo;
     }
 
     //Call from Prifile
-    public Property(int PropertyID, int OwnerID, String Title, String Purpose, String Status, int RentalPrice) {
+    public Property(int PropertyID, int OwnerID, String Title, String Purpose, String Status, int RentalPrice, String RentTo) {
         this.PropertyID = PropertyID;
         this.OwnerID = OwnerID;
         this.RentalPrice = RentalPrice;
         this.Title = Title;
         this.Purpose = Purpose;
         this.Status = Status;
+        this.RentTo = RentTo;
     }
     
     //Call from Search Result
-    public Property(int PropertyID, int AddressID, String Purpose, int Area, int RentalPrice, int Bedroom){
+    public Property(int PropertyID, int AddressID, String Purpose, int Area, int RentalPrice, String RentTo){
         this.PropertyID = PropertyID;
         this.AddressID = AddressID;
         this.Purpose = Purpose;
         this.Area = Area;
         this.RentalPrice = RentalPrice;
-        this.Bedroom = Bedroom;
+        this.RentTo = RentTo;
     }
-    //End of Search Result
     
     
     public int getPropertyID() {
@@ -257,4 +258,19 @@ public class Property {
         this.img = img;
     }
 
+    public String getRentTo() {
+        return RentTo;
+    }
+
+    public void setRentTo(String RentTo) {
+        this.RentTo = RentTo;
+    }
+
+    public int getSellingPrice() {
+        return SellingPrice;
+    }
+
+    public void setSellingPrice(int SellingPrice) {
+        this.SellingPrice = SellingPrice;
+    }
 }

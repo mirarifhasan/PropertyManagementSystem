@@ -60,7 +60,7 @@ public class Profile extends javax.swing.JFrame {
             
             Property property;
             while(rs.next()){
-                property = new Property(rs.getInt("PropertyID"), rs.getInt("OwnerID"), rs.getString("Title"), rs.getString("Purpose"), rs.getString("Status"), rs.getInt("RentalPrice"));
+                property = new Property(rs.getInt("PropertyID"), rs.getInt("OwnerID"), rs.getString("Title"), rs.getString("Purpose"), rs.getString("Status"), rs.getInt("RentalPrice"), rs.getString("RentTo"));
                 propertyList.add(property);
             }
         }
@@ -73,7 +73,7 @@ public class Profile extends javax.swing.JFrame {
     public void show_property(){
         ArrayList<Property> list = propertyList();
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
-        Object[] row = new Object[6];
+        Object[] row = new Object[7];
         
         for(int i=0; i<list.size(); i++){
             row[0] = list.get(i).getPropertyID();
@@ -81,10 +81,11 @@ public class Profile extends javax.swing.JFrame {
             row[2] = list.get(i).getPurpose();
             row[3] = list.get(i).getStatus();
             row[4] = list.get(i).getRentalPrice();
+            row[5] = list.get(i).getRentTo();
             
             if(list.get(i).getOwnerID()== user.getUsersID())
-                row[5] = "I Offering";
-            else row[5] = "I took";
+                row[6] = "I Offering";
+            else row[6] = "I Buy";
             model.addRow(row);
         }
     }
@@ -129,7 +130,7 @@ public class Profile extends javax.swing.JFrame {
         NameLabel.setForeground(new java.awt.Color(255, 255, 255));
         NameLabel.setText("Hi, ");
         jPanel1.add(NameLabel);
-        NameLabel.setBounds(100, 80, 510, 30);
+        NameLabel.setBounds(50, 80, 510, 30);
 
         TableHeading.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         TableHeading.setForeground(new java.awt.Color(255, 255, 255));
@@ -155,14 +156,14 @@ public class Profile extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Property ID", "Title", "Purpose", "Status", "Rental Price", "Relation"
+                "Property ID", "Title", "Purpose", "Status", "Rental Price", "Rent For", "Relation"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -176,7 +177,7 @@ public class Profile extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(90, 150, 810, 290);
+        jScrollPane1.setBounds(50, 150, 900, 290);
 
         UpdateTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         UpdateTextField.setText("Enter Porperty ID for update");
@@ -286,7 +287,7 @@ public class Profile extends javax.swing.JFrame {
             ResultSet rs = statement.executeQuery(sql);
             
             if(rs.next()){
-                property = new Property(rs.getInt("PropertyID"), rs.getInt("AddressID"), rs.getInt("OwnerID"), rs.getInt("BuyerID"), rs.getInt("RentalPrice"), rs.getInt("AdvancePrice"), rs.getInt("Area"), rs.getInt("Bedroom"), rs.getInt("Bathroom"), rs.getInt("Balcony"), rs.getInt("Lift"), rs.getString("Title"), rs.getString("Purpose"), rs.getString("Status"), rs.getString("MainView"), rs.getString("Parking"), rs.getString("ElectricityBackup"), rs.getString("CCTVSecurity"), rs.getString("Intercom"), rs.getString("Description"), rs.getBytes("Img"));         
+                property = new Property(rs.getInt("PropertyID"), rs.getInt("AddressID"), rs.getInt("OwnerID"), rs.getInt("BuyerID"), rs.getInt("RentalPrice"), rs.getInt("AdvancePrice"), rs.getInt("Area"), rs.getInt("Bedroom"), rs.getInt("Bathroom"), rs.getInt("Balcony"), rs.getInt("Lift"), rs.getString("Title"), rs.getString("Purpose"), rs.getString("Status"), rs.getString("MainView"), rs.getString("Parking"), rs.getString("ElectricityBackup"), rs.getString("CCTVSecurity"), rs.getString("Intercom"), rs.getString("Description"), rs.getBytes("Img"), rs.getString("RentTo"));         
             }
             else if(id!=0 && !rs.next())
                 JOptionPane.showMessageDialog(this, "You don't have permission");

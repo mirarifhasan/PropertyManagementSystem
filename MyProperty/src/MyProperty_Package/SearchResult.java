@@ -42,7 +42,6 @@ public class SearchResult extends javax.swing.JFrame {
         jTable1.getColumn("Rental Price").setCellRenderer( leftRenderer );
         jTable1.getColumn("Serial").setCellRenderer( leftRenderer );
         jTable1.getColumn("Area(Sq. Ft.)").setCellRenderer( leftRenderer );
-        jTable1.getColumn("Bedroom").setCellRenderer( leftRenderer );
         
         show_property();
     }
@@ -60,7 +59,7 @@ public class SearchResult extends javax.swing.JFrame {
             
             while(rs.next()){
 
-                Property property = new Property(rs.getInt("PropertyID"), rs.getInt("AddressID"), rs.getString("Purpose"), rs.getInt("Area"),  rs.getInt("RentalPrice"),rs.getInt("Bedroom"));
+                Property property = new Property(rs.getInt("PropertyID"), rs.getInt("AddressID"), rs.getString("Purpose"), rs.getInt("Area"),  rs.getInt("RentalPrice"),rs.getString("RentTo"));
                 propertyList.add(property);
             }
         }
@@ -106,7 +105,7 @@ public class SearchResult extends javax.swing.JFrame {
             row[2] = list.get(i).getPurpose();
             row[3] = list.get(i).getArea();
             row[4] = list.get(i).getRentalPrice();
-            row[5] = list.get(i).getBedroom();
+            row[5] = list.get(i).getRentTo();
             row[6] = addressTableAdd(list.get(i).getAddressID());;
             
             model.addRow(row);
@@ -127,6 +126,8 @@ public class SearchResult extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         TitleJabel = new javax.swing.JLabel();
         BackButton = new javax.swing.JButton();
+        BookButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         BGLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -138,11 +139,11 @@ public class SearchResult extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Serial", "Property ID", "Purpose", "Area(Sq. Ft.)", "Rental Price", "Bedroom", "Address"
+                "Serial", "Property ID", "Purpose", "Area(Sq. Ft.)", "Rental Price", "Rent For", "Address"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false
@@ -154,6 +155,11 @@ public class SearchResult extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -178,6 +184,15 @@ public class SearchResult extends javax.swing.JFrame {
         jPanel1.add(BackButton);
         BackButton.setBounds(50, 540, 90, 35);
 
+        BookButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        BookButton.setText("Book Now");
+        jPanel1.add(BookButton);
+        BookButton.setBounds(830, 540, 120, 35);
+
+        jLabel1.setText("jLabel1");
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(50, 350, 34, 14);
+
         BGLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyProperty_Package/Image/searchResultBG.jpg"))); // NOI18N
         jPanel1.add(BGLabel);
         BGLabel.setBounds(0, 0, 1000, 600);
@@ -201,6 +216,15 @@ public class SearchResult extends javax.swing.JFrame {
         new Home(user).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BackButtonActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        int selectedRowIndex = jTable1.getSelectedRow();
+        
+        System.out.println(selectedRowIndex);
+        
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -240,7 +264,9 @@ public class SearchResult extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BGLabel;
     private javax.swing.JButton BackButton;
+    private javax.swing.JButton BookButton;
     private javax.swing.JLabel TitleJabel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

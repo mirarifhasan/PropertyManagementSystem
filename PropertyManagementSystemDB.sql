@@ -9,7 +9,7 @@ CREATE TABLE Address(
 	AddressID int IDENTITY(1, 1) PRIMARY KEY,
 	City varchar(50) NOT NULL,
 	Area varchar(50) NOT NULL,
-	Road varchar(5),
+	Road varchar(5) NOT NULL,
 	Block varchar(5),
 	Sector varchar(5),
 	House varchar(5) NOT NULL
@@ -40,15 +40,17 @@ CREATE TABLE Property(
 	Title varchar(300) NOT NULL,
 	Purpose varchar(4) NOT NULL, --Rent/Sell/Both
 	Status varchar(15) NOT NULL, --Available or not
-	RentalPrice int NOT NULL,
+	RentTo varchar(15) NOT NULL, --Family/Bachalor/Both
+	RentalPrice int,
 	AdvancePrice int,
+	SellingPrice int,
 	Img image,
 
-	Area int NOT NULL,
+	Area int NOT NULL, --Sq. Ft.
 	Bedroom int NOT NULL,
 	Bathroom int NOT NULL,
 	Balcony int NOT NULL,
-	MainView varchar(20), --Ex: South view
+	MainView varchar(20), --Ex: South/East etc.
 
 	Lift int,
 	Parking varchar(3), --YES/NO
@@ -63,10 +65,13 @@ SELECT * FROM Property;
 
 --Select * from Property where RentalPrice >= 100;
 --Select * from Property where Purpose='Rent'
+
 --TrUncate TABLE Property
 --TrUncate TABLE client;
+
 --delete from owner where OwnerID='1001';
---delete from Address where AddressID='6';
+--delete from Address where AddressID='6'
+;
 --Drop table Property;
 
 

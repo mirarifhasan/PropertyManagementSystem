@@ -44,6 +44,12 @@ public class PropertyForm extends javax.swing.JFrame {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         
         this.user = user;
+        RentalPriceLabel.setVisible(false);
+        AdvancePriceLabel.setVisible(false);
+        SellingPriceLabel.setVisible(false);
+        RentalPriceTextField.setVisible(false);
+        AdvancePriceTextField.setVisible(false);
+        SellingPriceTextField.setVisible(false);
     }
 
     PropertyForm(Property property, Users user) {
@@ -65,6 +71,9 @@ public class PropertyForm extends javax.swing.JFrame {
         StatusComboBox.setSelectedItem(property.getStatus());
         RentalPriceTextField.setText(String.valueOf(property.getRentalPrice()));
         AdvancePriceTextField.setText(String.valueOf(property.getAdvancePrice()));
+        
+        RentForComboBox.setSelectedItem(property.getRentTo());
+        SellingPriceTextField.setText(String.valueOf(property.getSellingPrice()));
         
         AreaSqftTextField.setText(String.valueOf(property.getArea()));
         BedroomComboBox.setSelectedItem(String.valueOf(property.getBedroom()));
@@ -181,6 +190,10 @@ public class PropertyForm extends javax.swing.JFrame {
         BlockTextField = new javax.swing.JTextField();
         imageLabel = new javax.swing.JLabel();
         imageButton = new javax.swing.JButton();
+        SellingPriceLabel = new javax.swing.JLabel();
+        SellingPriceTextField = new javax.swing.JTextField();
+        RentForLabel = new javax.swing.JLabel();
+        RentForComboBox = new javax.swing.JComboBox<>();
         BGLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -213,6 +226,11 @@ public class PropertyForm extends javax.swing.JFrame {
         PurposeComboBox.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         PurposeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Rent", "Sell", "Both" }));
         PurposeComboBox.setToolTipText("");
+        PurposeComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                PurposeComboBoxItemStateChanged(evt);
+            }
+        });
         jPanel1.add(PurposeComboBox);
         PurposeComboBox.setBounds(170, 110, 110, 30);
 
@@ -241,9 +259,9 @@ public class PropertyForm extends javax.swing.JFrame {
         AdvancePriceLabel.setForeground(new java.awt.Color(255, 255, 255));
         AdvancePriceLabel.setText("Advance Price:");
         jPanel1.add(AdvancePriceLabel);
-        AdvancePriceLabel.setBounds(80, 230, 85, 30);
+        AdvancePriceLabel.setBounds(310, 190, 85, 30);
         jPanel1.add(AdvancePriceTextField);
-        AdvancePriceTextField.setBounds(170, 230, 110, 30);
+        AdvancePriceTextField.setBounds(400, 190, 110, 30);
 
         AreaSqftLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         AreaSqftLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -450,6 +468,26 @@ public class PropertyForm extends javax.swing.JFrame {
         jPanel1.add(imageButton);
         imageButton.setBounds(800, 180, 120, 30);
 
+        SellingPriceLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        SellingPriceLabel.setForeground(new java.awt.Color(255, 255, 255));
+        SellingPriceLabel.setText("Selling Price:");
+        jPanel1.add(SellingPriceLabel);
+        SellingPriceLabel.setBounds(80, 230, 68, 30);
+        jPanel1.add(SellingPriceTextField);
+        SellingPriceTextField.setBounds(170, 230, 110, 30);
+
+        RentForLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        RentForLabel.setForeground(new java.awt.Color(255, 255, 255));
+        RentForLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        RentForLabel.setText("Rent For:");
+        jPanel1.add(RentForLabel);
+        RentForLabel.setBounds(305, 110, 85, 30);
+
+        RentForComboBox.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        RentForComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Any", "Family", "Bachelor" }));
+        jPanel1.add(RentForComboBox);
+        RentForComboBox.setBounds(400, 110, 110, 30);
+
         BGLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         BGLabel.setForeground(new java.awt.Color(255, 255, 255));
         BGLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyProperty_Package/Image/PropertyFormBG.jpeg"))); // NOI18N
@@ -487,13 +525,32 @@ public class PropertyForm extends javax.swing.JFrame {
         if(TitleTextField.getText().trim().isEmpty()) emptyFields.add("Title");
         else property.setTitle(TitleTextField.getText().trim());
 
-        if(PurposeComboBox.getSelectedItem().toString() == "Select") emptyFields.add("Type");
+        if(PurposeComboBox.getSelectedItem().toString() == "Select") emptyFields.add("Purpose");
         else property.setPurpose(PurposeComboBox.getSelectedItem().toString());
 
+        if(property.getPurpose().equals("Both")){
+            if(SellingPriceTextField.getText().trim().isEmpty()) emptyFields.add("Selling Price");
+            else property.setSellingPrice(Integer.parseInt(SellingPriceTextField.getText().trim()));
+            if(RentalPriceTextField.getText().trim().isEmpty()) emptyFields.add("Rental Price");
+            else property.setRentalPrice(Integer.parseInt(RentalPriceTextField.getText().trim()));
+        }
+        else if(property.getPurpose().equals("Rent")){
+            if(RentalPriceTextField.getText().isEmpty()) emptyFields.add("Rental Price");
+            else property.setRentalPrice(Integer.parseInt(RentalPriceTextField.getText().trim()));
+            
+            if(!SellingPriceTextField.getText().isEmpty())
+                property.setSellingPrice(Integer.parseInt(SellingPriceTextField.getText().trim()));
+        }
+        else{
+            if(SellingPriceTextField.getText().isEmpty()) emptyFields.add("Selling Price");
+            else property.setSellingPrice(Integer.parseInt(SellingPriceTextField.getText().trim()));
+            
+            if(!RentalPriceTextField.getText().isEmpty())
+                property.setRentalPrice(Integer.parseInt(RentalPriceTextField.getText().trim()));
+        }
+        
+        
         property.setStatus(StatusComboBox.getSelectedItem().toString());
-
-        if(RentalPriceTextField.getText().trim().isEmpty()) emptyFields.add("Rental price");   
-        else property.setRentalPrice(Integer.parseInt(RentalPriceTextField.getText().trim()));
 
         if(!AdvancePriceTextField.getText().trim().isEmpty())
             property.setAdvancePrice(Integer.parseInt(AdvancePriceTextField.getText().trim()));
@@ -510,6 +567,8 @@ public class PropertyForm extends javax.swing.JFrame {
         property.setMainView(ViewComboBox.getSelectedItem().toString());
 
         property.setLift(Integer.parseInt(LiftComboBox.getSelectedItem().toString()));
+        
+        property.setRentTo(RentForComboBox.getSelectedItem().toString());
         
         if(ParkingComboBox.getSelectedItem().toString() == "Select") emptyFields.add("Parking");
         else property.setParking(ParkingComboBox.getSelectedItem().toString());
@@ -565,35 +624,37 @@ public class PropertyForm extends javax.swing.JFrame {
                 }
                 if(AddPropertyButton.getText()=="Update"){
                     sql = "UPDATE Property set Title='"+property.getTitle()+"', Purpose='"+property.getPurpose()+
-                            "', Status='"+property.getStatus()+"', RentalPrice='"+property.getRentalPrice()+"', AdvancePrice='"+property.getAdvancePrice()+
+                            "', Status='"+property.getStatus()+"', RentTo='"+property.getRentTo()+"' ,RentalPrice='"+property.getRentalPrice()+"', SellingPrice='"+property.getSellingPrice()+"', AdvancePrice='"+property.getAdvancePrice()+
                             "', Area='"+property.getArea()+"', Bedroom='"+property.getBedroom()+"', Bathroom='"+property.getBathroom()+"', Balcony='"+property.getBalcony()+"', MainView='"+property.getMainView()+"', Lift='"+property.getLift()+"', Parking='"+property.getParking()+
                             "', ElectricityBackup='"+property.getElectricityBackup()+"', CCTVSecurity='"+property.getCCTVSecurity()+"', Intercom='"+property.getIntercom()+"', Description='"+property.getDescription()+"' WHERE PropertyID='"+property.getPropertyID()+"';";
                     statement.execute(sql);
                 }
                     
                 else{
-                    sql = "INSERT INTO Property(AddressID, OwnerID, Title, Purpose, Status, RentalPrice, AdvancePrice, Img, Area, Bedroom, Bathroom, Balcony, MainView, Lift, Parking, ElectricityBackup, CCTVSecurity, Intercom, Description) "
-                        + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    sql = "INSERT INTO Property(AddressID, OwnerID, Title, Purpose, Status, RentTo, RentalPrice, AdvancePrice, SellingPrice, Img, Area, Bedroom, Bathroom, Balcony, MainView, Lift, Parking, ElectricityBackup, CCTVSecurity, Intercom, Description) "
+                        + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                     PreparedStatement pst = obj.connection.prepareStatement(sql);
                     pst.setInt(1, address.getAddressID());
                     pst.setInt(2, user.getUsersID());
                     pst.setString(3, property.getTitle());
                     pst.setString(4, property.getPurpose());
                     pst.setString(5, property.getStatus());
-                    pst.setInt(6, property.getRentalPrice());
-                    pst.setInt(7, property.getAdvancePrice());
-                    pst.setBytes(8, property.getImg());
-                    pst.setInt(9, property.getArea());
-                    pst.setInt(10, property.getBedroom());
-                    pst.setInt(11, property.getBathroom());
-                    pst.setInt(12, property.getBalcony());
-                    pst.setString(13, property.getMainView());
-                    pst.setInt(14, property.getLift());
-                    pst.setString(15, property.getParking());
-                    pst.setString(16, property.getElectricityBackup());
-                    pst.setString(17, property.getCCTVSecurity());
-                    pst.setString(18, property.getIntercom());
-                    pst.setString(19, property.getDescription());
+                    pst.setString(6, RentForComboBox.getSelectedItem().toString());
+                    pst.setInt(7, property.getRentalPrice());
+                    pst.setInt(8, property.getAdvancePrice());
+                    pst.setInt(9, property.getSellingPrice());
+                    pst.setBytes(10, property.getImg());
+                    pst.setInt(11, property.getArea());
+                    pst.setInt(12, property.getBedroom());
+                    pst.setInt(13, property.getBathroom());
+                    pst.setInt(14, property.getBalcony());
+                    pst.setString(15, property.getMainView());
+                    pst.setInt(16, property.getLift());
+                    pst.setString(17, property.getParking());
+                    pst.setString(18, property.getElectricityBackup());
+                    pst.setString(19, property.getCCTVSecurity());
+                    pst.setString(20, property.getIntercom());
+                    pst.setString(21, property.getDescription());
                     pst.executeUpdate();
                 }
             }
@@ -633,6 +694,42 @@ public class PropertyForm extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_imageButtonActionPerformed
+
+    private void PurposeComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_PurposeComboBoxItemStateChanged
+        // TODO add your handling code here:
+        if(PurposeComboBox.getSelectedItem().toString().equals("Both")){
+            RentalPriceLabel.setVisible(true);
+            AdvancePriceLabel.setVisible(true);
+            SellingPriceLabel.setVisible(true);
+            RentalPriceTextField.setVisible(true);
+            AdvancePriceTextField.setVisible(true);
+            SellingPriceTextField.setVisible(true);
+        }
+        else if(PurposeComboBox.getSelectedItem().toString().equals("Sell")){
+            RentalPriceLabel.setVisible(false);
+            AdvancePriceLabel.setVisible(false);
+            SellingPriceLabel.setVisible(true);
+            RentalPriceTextField.setVisible(false);
+            AdvancePriceTextField.setVisible(false);
+            SellingPriceTextField.setVisible(true);
+        }
+        else if(PurposeComboBox.getSelectedItem().toString().equals("Rent")){
+            RentalPriceLabel.setVisible(true);
+            AdvancePriceLabel.setVisible(true);
+            SellingPriceLabel.setVisible(false);
+            RentalPriceTextField.setVisible(true);
+            AdvancePriceTextField.setVisible(true);
+            SellingPriceTextField.setVisible(false);
+        }
+        else {
+            RentalPriceLabel.setVisible(false);
+            AdvancePriceLabel.setVisible(false);
+            SellingPriceLabel.setVisible(false);
+            RentalPriceTextField.setVisible(false);
+            AdvancePriceTextField.setVisible(false);
+            SellingPriceTextField.setVisible(false);
+        }
+    }//GEN-LAST:event_PurposeComboBoxItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -706,12 +803,16 @@ public class PropertyForm extends javax.swing.JFrame {
     private javax.swing.JLabel PropertyIDLabel;
     private javax.swing.JComboBox<String> PurposeComboBox;
     private javax.swing.JLabel PurposeLabel;
+    private javax.swing.JComboBox<String> RentForComboBox;
+    private javax.swing.JLabel RentForLabel;
     private javax.swing.JLabel RentalPriceLabel;
     private javax.swing.JTextField RentalPriceTextField;
     private javax.swing.JLabel RoadLabel;
     private javax.swing.JTextField RoadTextField;
     private javax.swing.JLabel SectorLabel;
     private javax.swing.JTextField SectorTextField;
+    private javax.swing.JLabel SellingPriceLabel;
+    private javax.swing.JTextField SellingPriceTextField;
     private javax.swing.JLabel Status;
     private javax.swing.JComboBox<String> StatusComboBox;
     private javax.swing.JLabel TitleLabel;
