@@ -590,7 +590,8 @@ public class PropertyForm extends javax.swing.JFrame {
             address.setArea(AreaTextField.getText().trim());
         address.setSector(SectorTextField.getText().trim());
         address.setBlock(BlockTextField.getText().trim());
-        address.setRoad(RoadTextField.getText().trim());
+        if(RoadTextField.getText().trim().isEmpty()) emptyFields.add("Road");
+            address.setRoad(RoadTextField.getText().trim());
         if(HouseTextField.getText().trim().isEmpty()) emptyFields.add("House");
             address.setHouse(HouseTextField.getText().trim());
 

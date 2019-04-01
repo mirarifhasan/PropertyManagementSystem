@@ -463,7 +463,7 @@ public class Home extends javax.swing.JFrame {
         if(price || bedc || !cloc || area)
             sql = sql + " and ";
         if(!PurposeComboBox.getSelectedItem().equals("Both"))
-            sql = sql + "Purpose='"+PurposeComboBox.getSelectedItem()+"' ";
+            sql = sql + "(Purpose='"+PurposeComboBox.getSelectedItem()+"' or Purpose='Both') ";
         else
             sql = sql + "(Purpose='Rent' or Purpose='Sell' or Purpose='Both') ";
         

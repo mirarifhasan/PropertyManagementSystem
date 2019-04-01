@@ -239,7 +239,7 @@ public class SignUp extends javax.swing.JFrame {
         
         if(!user.getFirstName().isEmpty() && !user.getLastName().isEmpty() && !user.getPhone().isEmpty() && !user.getPassword().isEmpty()){
 
-            if(!address.getCity().isEmpty() && !address.getArea().isEmpty() && !address.getHouse().isEmpty()){
+            if(!address.getCity().isEmpty() && !address.getArea().isEmpty() && !address.getHouse().isEmpty() && !address.getRoad().isEmpty()){
 
                 ConnectMSSQL obj = new ConnectMSSQL();
                 try {
@@ -309,7 +309,7 @@ public class SignUp extends javax.swing.JFrame {
                 }
 
             }else
-                JOptionPane.showMessageDialog(this, "Must fill City, Area, House fields");
+                JOptionPane.showMessageDialog(this, "Must fill City, Area, Road, House fields");
         }else
             JOptionPane.showMessageDialog(this, "Must fill First Name, Last Name, Phone, Password fields");
         

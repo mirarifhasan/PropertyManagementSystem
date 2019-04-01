@@ -60,8 +60,16 @@ CREATE TABLE Property(
 
 	Description varchar(1000)
 );
-INSERT INTO Property VALUES ('1', '3000', null, 'Sample room', 'Rent', 'Available', '10000', null, null, '1600', '3', '2', '2', '', '0', 'Yes', 'No', 'No', 'Yes', 'Good day.');
+INSERT INTO Property VALUES ('1', '3000', null, 'Sample room', 'Both', 'Available', 'Any', '10000', null, '16000', null, '1200', '3', '2', '2', 'South', '0', 'Yes', 'No', 'No', 'Yes', 'Good day.');
 SELECT * FROM Property;
+
+
+CREATE TABLE BookRequest(
+	OwnerID int NOT NULL FOREIGN KEY REFERENCES Users (UsersID),
+	BuyerID int NOT NULL FOREIGN KEY REFERENCES Users (UsersID),
+	PropertyID int NOT NULL FOREIGN KEY REFERENCES Property (PropertyID)
+);
+select * from BookRequest;
 
 --Select * from Property where RentalPrice >= 100;
 --Select * from Property where Purpose='Rent'
@@ -69,11 +77,12 @@ SELECT * FROM Property;
 --TrUncate TABLE Property
 --TrUncate TABLE client;
 
---delete from owner where OwnerID='1001';
---delete from Address where AddressID='6'
-;
+--delete from users where Usersid='3001';
+--delete from client where OwnerID='1001';
+--delete from Address where AddressID='2';
 --Drop table Property;
 
+Insert into BookRequest values ('3002', '3000', '7001');
 
 SELECT * FROM Address WHERE Block='' AND Sector='';
 SELECT * FROM Users WHERE (Email='arif.ishan05@gmail.com' OR Phone='01996846517') AND Password='1234';

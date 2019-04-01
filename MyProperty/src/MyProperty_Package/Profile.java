@@ -110,6 +110,7 @@ public class Profile extends javax.swing.JFrame {
         UpdateTextField = new javax.swing.JTextField();
         UpdateButton = new javax.swing.JButton();
         HomeButton = new javax.swing.JButton();
+        guideLabel = new javax.swing.JLabel();
         BGLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -149,7 +150,7 @@ public class Profile extends javax.swing.JFrame {
             }
         });
         jPanel1.add(AddPropertyButton);
-        AddPropertyButton.setBounds(790, 460, 110, 35);
+        AddPropertyButton.setBounds(790, 470, 110, 35);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -174,6 +175,11 @@ public class Profile extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jPanel1.add(jScrollPane1);
@@ -195,7 +201,7 @@ public class Profile extends javax.swing.JFrame {
             }
         });
         jPanel1.add(UpdateTextField);
-        UpdateTextField.setBounds(90, 460, 190, 35);
+        UpdateTextField.setBounds(90, 470, 190, 35);
 
         UpdateButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         UpdateButton.setText("Update");
@@ -205,7 +211,7 @@ public class Profile extends javax.swing.JFrame {
             }
         });
         jPanel1.add(UpdateButton);
-        UpdateButton.setBounds(290, 460, 73, 35);
+        UpdateButton.setBounds(290, 470, 73, 35);
 
         HomeButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         HomeButton.setText("Back to Home");
@@ -216,6 +222,13 @@ public class Profile extends javax.swing.JFrame {
         });
         jPanel1.add(HomeButton);
         HomeButton.setBounds(90, 530, 140, 40);
+
+        guideLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        guideLabel.setForeground(new java.awt.Color(255, 255, 255));
+        guideLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        guideLabel.setText("* Click for Owner/Buyer/Pending(for owner) details");
+        jPanel1.add(guideLabel);
+        guideLabel.setBounds(50, 440, 420, 14);
 
         BGLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyProperty_Package/Image/ProfileBG.jpg"))); // NOI18N
         jPanel1.add(BGLabel);
@@ -297,6 +310,14 @@ public class Profile extends javax.swing.JFrame {
         }catch(Exception e){}
     }//GEN-LAST:event_UpdateButtonActionPerformed
 
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_jTable1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -341,6 +362,7 @@ public class Profile extends javax.swing.JFrame {
     private javax.swing.JLabel TableHeading;
     private javax.swing.JButton UpdateButton;
     private javax.swing.JTextField UpdateTextField;
+    private javax.swing.JLabel guideLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
