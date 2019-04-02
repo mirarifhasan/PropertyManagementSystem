@@ -14,7 +14,7 @@ package MyProperty_Package;
 public class Property {
 
     //Here all variables are Properties attribute
-    private int PropertyID, AddressID, OwnerID, BuyerID, RentalPrice, AdvancePrice, SellingPrice, Area, Bedroom, Bathroom, Balcony, Lift;
+    private int PropertyID, AddressID, OwnerID, BuyerID=-1, RentalPrice, AdvancePrice, SellingPrice, Area, Bedroom, Bathroom, Balcony, Lift;
     private String Title, Purpose, Status, MainView, Parking, ElectricityBackup, CCTVSecurity, Intercom, Description, RentTo;    
     private byte[] img;
 
@@ -69,7 +69,7 @@ public class Property {
     }
 
     //Call from Prifile
-    public Property(int PropertyID, int OwnerID, String Title, String Purpose, String Status, int RentalPrice, String RentTo) {
+    public Property(int PropertyID, int OwnerID, int BuyerID, String Title, String Purpose, String Status, int RentalPrice, String RentTo) {
         this.PropertyID = PropertyID;
         this.OwnerID = OwnerID;
         this.RentalPrice = RentalPrice;
@@ -77,6 +77,7 @@ public class Property {
         this.Purpose = Purpose;
         this.Status = Status;
         this.RentTo = RentTo;
+        this.BuyerID = BuyerID;
     }
     
     //Call from Search Result

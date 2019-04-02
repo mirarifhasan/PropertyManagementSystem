@@ -27,7 +27,7 @@ public class Profile extends javax.swing.JFrame {
         initComponents();
     }
     
-    Users user;
+    Users user, buyer;
     Property property;
     
     Profile(Users user) {
@@ -60,7 +60,7 @@ public class Profile extends javax.swing.JFrame {
             
             Property property;
             while(rs.next()){
-                property = new Property(rs.getInt("PropertyID"), rs.getInt("OwnerID"), rs.getString("Title"), rs.getString("Purpose"), rs.getString("Status"), rs.getInt("RentalPrice"), rs.getString("RentTo"));
+                property = new Property(rs.getInt("PropertyID"), rs.getInt("OwnerID"), rs.getInt("BuyerID"), rs.getString("Title"), rs.getString("Purpose"), rs.getString("Status"), rs.getInt("RentalPrice"), rs.getString("RentTo"));
                 propertyList.add(property);
             }
         }
@@ -83,9 +83,12 @@ public class Profile extends javax.swing.JFrame {
             row[4] = list.get(i).getRentalPrice();
             row[5] = list.get(i).getRentTo();
             
-            if(list.get(i).getOwnerID()== user.getUsersID())
-                row[6] = "I Offering";
-            else row[6] = "I Buy";
+            if(list.get(i).getBuyerID()== user.getUsersID())
+                row[6] = "I Buyed";     
+            else if(list.get(i).getOwnerID()==user.getUsersID() && list.get(i).getBuyerID()>=3000) 
+                row[6] = "Buyed by someone";
+            else
+                row[6] = "Offered";
             model.addRow(row);
         }
     }
@@ -312,10 +315,50 @@ public class Profile extends javax.swing.JFrame {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         
+        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        int selectedRowIndex = jTable1.getSelectedRow();
         
+        boolean b=false;
+        int id = (int) model.getValueAt(selectedRowIndex, 0);
         
+        try {
+            ConnectMSSQL obj = new ConnectMSSQL();
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            obj.connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=PropertyManagementSystemDB;selectMethod=cursor", "sa", "123456");
+            Statement statement = obj.connection.createStatement();
+
+            String sql = "Select * from Property where PropertyID='"+id+"'";
+            ResultSet rs = statement.executeQuery(sql);
+            rs.next();
+            
+            if(rs.getInt("BuyerID")>30){
+                
+                sql = "Select * from Users where UsersID='"+rs.getInt("BuyerID")+"'";
+                ResultSet rs2 = statement.executeQuery(sql);
+                rs2.next();
+                
+                buyer.setUsersID(rs2.getInt("UsersID"));
+                buyer.setUsersID(rs2.getInt("UsersID"));
+                buyer.setFirstName(rs2.getString("FirstName"));
+                buyer.setLastName(rs2.getString("LastName"));
+                buyer.setEmail(rs2.getString("Email"));
+                buyer.setPhone(rs2.getString("Phone"));
+                
+                b = true;
+            }else{
+                b = false;
+            }
+              
+        }catch(Exception e){System.out.println(e);System.out.println("hm");}
         
-        
+        if(b){
+            new BuyerInfo(user, buyer, id).setVisible(true);
+            this.setVisible(false);
+        }else{
+            new BuyerInfo(user, id).setVisible(true);
+            this.setVisible(false);
+        }
+                
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**

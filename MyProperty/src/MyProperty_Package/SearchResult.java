@@ -84,7 +84,7 @@ public class SearchResult extends javax.swing.JFrame {
             ResultSet rs = statement.executeQuery(sql);
             
             while(rs.next()){
-
+                
                 Property property = new Property(rs.getInt("PropertyID"), rs.getInt("AddressID"), rs.getString("Purpose"), rs.getInt("Area"),  rs.getInt("RentalPrice"),rs.getString("RentTo"));
                 propertyList.add(property);
             }
@@ -404,7 +404,7 @@ public class SearchResult extends javax.swing.JFrame {
     
     int id;
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        // TODO add your handling code here:
+
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         int selectedRowIndex = jTable1.getSelectedRow();
         
@@ -478,6 +478,8 @@ public class SearchResult extends javax.swing.JFrame {
             catch(Exception e){
                 
             }
+            new Profile(user).setVisible(true);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_BookButtonActionPerformed
 
