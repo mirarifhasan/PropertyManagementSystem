@@ -8,7 +8,12 @@ package MyProperty_Package;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import javafx.beans.binding.Bindings;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -17,28 +22,29 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ASUS
  */
-public class BuyerInfo extends javax.swing.JFrame {
+public class OwnerBuyerInfo extends javax.swing.JFrame {
 
     /**
      * Creates new form BuyerInfo
      */
-    public BuyerInfo() {
+    public OwnerBuyerInfo() {
         initComponents();
     }
 
     Users user;
-    Users buyer = new Users();
+    Users person = new Users();
     int pid;
     
-    BuyerInfo(Users user, int pid) {
+    OwnerBuyerInfo(Users user, int pid) {
         initComponents();
         
         this.user = user;
         this.pid = pid;
         
-        BuyerNameLabel.setVisible(false);
-        BuyerEmailLabel.setVisible(false);
-        BuyerPhoneLabel.setVisible(false);
+        NameLabel.setVisible(false);
+        EmailLabel.setVisible(false);
+        PhoneLabel.setVisible(false);
+        InformationLabel.setVisible(false);
         
         DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
         leftRenderer.setHorizontalAlignment(DefaultTableCellRenderer.LEFT);
@@ -47,24 +53,23 @@ public class BuyerInfo extends javax.swing.JFrame {
         showClientsList();
     }
     
-    public BuyerInfo(Users user, Users buyer, int pid) {
+    public OwnerBuyerInfo(Users user, Users person, int pid, String who) {
         initComponents();
         
         this.user = user;
-        this.buyer = buyer;
+        this.person = person;
         this.pid = pid;
         
         jScrollPane1.setVisible(false);
         ConfirmButton.setVisible(false);
         UserIDTextField.setVisible(false);
+        tableTitle.setVisible(false);
         
-        //try{
-            BuyerNameLabel.setText(BuyerNameLabel.getText().toString() + buyer.getFirstName() + " " + buyer.getLastName());
-            BuyerEmailLabel.setText(BuyerEmailLabel.getText().toString() + buyer.getEmail());
-            BuyerPhoneLabel.setText(BuyerPhoneLabel.getText().toString() + buyer.getPhone());
-        //}catch(Exception e){
-            //System.out.println(e);
-        //}
+        NameLabel.setText(NameLabel.getText().toString() + person.getFirstName() + " " + person.getLastName());
+        PhoneLabel.setText(PhoneLabel.getText().toString() + person.getPhone());
+        InformationLabel.setText(who + InformationLabel.getText());
+        if(!person.getEmail().isEmpty()) EmailLabel.setText(EmailLabel.getText().toString() + person.getEmail());
+        else EmailLabel.setVisible(false);
     }
 
     public ArrayList<BookRequest> bookList(){
@@ -133,9 +138,11 @@ public class BuyerInfo extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        BuyerNameLabel = new javax.swing.JLabel();
-        BuyerPhoneLabel = new javax.swing.JLabel();
-        BuyerEmailLabel = new javax.swing.JLabel();
+        InformationLabel = new javax.swing.JLabel();
+        NameLabel = new javax.swing.JLabel();
+        PhoneLabel = new javax.swing.JLabel();
+        EmailLabel = new javax.swing.JLabel();
+        tableTitle = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         UserIDTextField = new javax.swing.JTextField();
@@ -147,23 +154,37 @@ public class BuyerInfo extends javax.swing.JFrame {
 
         jPanel1.setLayout(null);
 
-        BuyerNameLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        BuyerNameLabel.setForeground(new java.awt.Color(255, 255, 255));
-        BuyerNameLabel.setText("Buyer Name: ");
-        jPanel1.add(BuyerNameLabel);
-        BuyerNameLabel.setBounds(260, 200, 490, 50);
+        InformationLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        InformationLabel.setForeground(new java.awt.Color(255, 255, 255));
+        InformationLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        InformationLabel.setText("Information");
+        jPanel1.add(InformationLabel);
+        InformationLabel.setBounds(380, 130, 240, 35);
 
-        BuyerPhoneLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        BuyerPhoneLabel.setForeground(new java.awt.Color(255, 255, 255));
-        BuyerPhoneLabel.setText("Buyer Phone: ");
-        jPanel1.add(BuyerPhoneLabel);
-        BuyerPhoneLabel.setBounds(260, 250, 490, 50);
+        NameLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        NameLabel.setForeground(new java.awt.Color(255, 255, 255));
+        NameLabel.setText("Name: ");
+        jPanel1.add(NameLabel);
+        NameLabel.setBounds(290, 200, 420, 50);
 
-        BuyerEmailLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        BuyerEmailLabel.setForeground(new java.awt.Color(255, 255, 255));
-        BuyerEmailLabel.setText("Buyer Email: ");
-        jPanel1.add(BuyerEmailLabel);
-        BuyerEmailLabel.setBounds(260, 300, 490, 50);
+        PhoneLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        PhoneLabel.setForeground(new java.awt.Color(255, 255, 255));
+        PhoneLabel.setText("Phone: ");
+        jPanel1.add(PhoneLabel);
+        PhoneLabel.setBounds(290, 250, 420, 50);
+
+        EmailLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        EmailLabel.setForeground(new java.awt.Color(255, 255, 255));
+        EmailLabel.setText("Email: ");
+        jPanel1.add(EmailLabel);
+        EmailLabel.setBounds(290, 300, 420, 50);
+
+        tableTitle.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        tableTitle.setForeground(new java.awt.Color(255, 255, 255));
+        tableTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tableTitle.setText("List of customer who want your property");
+        jPanel1.add(tableTitle);
+        tableTitle.setBounds(300, 80, 400, 35);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -186,6 +207,11 @@ public class BuyerInfo extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -252,34 +278,80 @@ public class BuyerInfo extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_BackButtonActionPerformed
 
+    private boolean idValidation(int id){
+        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        int rowNumber = model.getRowCount();
+        boolean b = false;
+        
+        for(int i=0; i<rowNumber; i++){
+            int temp = (int) model.getValueAt(i, 0);
+            if(temp == id){
+                b = true;
+                break;
+            }
+        }
+        return b;
+    }
+    
     private void ConfirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmButtonActionPerformed
         // TODO add your handling code here:
         
-        try{ int id = Integer.parseInt(UserIDTextField.getText().trim());}
-        catch(Exception e){ JOptionPane.showMessageDialog(this, "Wrong input");}
-            
-        try {
-            int buyerID = Integer.parseInt(UserIDTextField.getText().trim());
-            
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            ConnectMSSQL obj = new ConnectMSSQL();
-            obj.connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=PropertyManagementSystemDB;selectMethod=cursor", "sa", "123456");
+        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        int rowNumber = model.getRowCount();
+        
+        if(rowNumber>0){
+            try{ 
+                int id = Integer.parseInt(UserIDTextField.getText().trim());
+                if(idValidation(id)){
+                    try {
+                        int buyerID = Integer.parseInt(UserIDTextField.getText().trim());
 
-            Statement statement = obj.connection.createStatement();
+                        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                        ConnectMSSQL obj = new ConnectMSSQL();
+                        obj.connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=PropertyManagementSystemDB;selectMethod=cursor", "sa", "123456");
 
-            String sql = "Update Property set BuyerID='"+buyerID+"', Status='Not Avalable' where PropertyID='"+pid+"'";
-            statement.execute(sql);
+                        Statement statement = obj.connection.createStatement();
 
-            sql = "Delete from BookRequest where PropertyID='"+pid+"'";
-            statement.execute(sql);
+                        String sql = "Update Property set BuyerID='"+buyerID+"', Status='Not Avalable' where PropertyID='"+pid+"'";
+                        statement.execute(sql);
 
-            new Profile(user).setVisible(true);
-            this.setVisible(false);
+                        sql = "Delete from BookRequest where PropertyID='"+pid+"'";
+                        statement.execute(sql);
+                        
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                        Date date = new Date();//2016/11/16 12:08:43
+                        
+                        sql = "Insert into History values('"+user.getUsersID()+"', '"+buyerID+"', '"+pid+"', '"+dateFormat.format(date)+"', '')";
+                        System.out.println(sql);
+                        statement.execute(sql);
+                        
+                        new Profile(user).setVisible(true);
+                        this.setVisible(false);
+                    }
+                    catch(Exception e){
+                        System.out.println(e);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(this, "Invalid Input");
+                }
+            }
+            catch(Exception e){ 
+                JOptionPane.showMessageDialog(this, "Wrong input");
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "No buyer found in list");
         }
-        catch(Exception e){
-            System.out.println(e);
-        }
+        
+        
     }//GEN-LAST:event_ConfirmButtonActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        int selectedRowIndex = jTable1.getSelectedRow();
+        
+        UserIDTextField.setText(model.getValueAt(selectedRowIndex, 0).toString());
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -298,20 +370,21 @@ public class BuyerInfo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BuyerInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OwnerBuyerInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BuyerInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OwnerBuyerInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BuyerInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OwnerBuyerInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BuyerInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OwnerBuyerInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BuyerInfo().setVisible(true);
+                new OwnerBuyerInfo().setVisible(true);
             }
         });
     }
@@ -319,13 +392,15 @@ public class BuyerInfo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BGLabel;
     private javax.swing.JButton BackButton;
-    private javax.swing.JLabel BuyerEmailLabel;
-    private javax.swing.JLabel BuyerNameLabel;
-    private javax.swing.JLabel BuyerPhoneLabel;
     private javax.swing.JButton ConfirmButton;
+    private javax.swing.JLabel EmailLabel;
+    private javax.swing.JLabel InformationLabel;
+    private javax.swing.JLabel NameLabel;
+    private javax.swing.JLabel PhoneLabel;
     private javax.swing.JTextField UserIDTextField;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel tableTitle;
     // End of variables declaration//GEN-END:variables
 }

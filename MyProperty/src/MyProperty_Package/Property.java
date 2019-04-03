@@ -68,7 +68,7 @@ public class Property {
         this.RentTo = RentTo;
     }
 
-    //Call from Prifile
+    //Call from Profile
     public Property(int PropertyID, int OwnerID, int BuyerID, String Title, String Purpose, String Status, int RentalPrice, String RentTo) {
         this.PropertyID = PropertyID;
         this.OwnerID = OwnerID;

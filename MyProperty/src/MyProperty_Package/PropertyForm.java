@@ -15,7 +15,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -629,6 +632,25 @@ public class PropertyForm extends javax.swing.JFrame {
                             "', Area='"+property.getArea()+"', Bedroom='"+property.getBedroom()+"', Bathroom='"+property.getBathroom()+"', Balcony='"+property.getBalcony()+"', MainView='"+property.getMainView()+"', Lift='"+property.getLift()+"', Parking='"+property.getParking()+
                             "', ElectricityBackup='"+property.getElectricityBackup()+"', CCTVSecurity='"+property.getCCTVSecurity()+"', Intercom='"+property.getIntercom()+"', Description='"+property.getDescription()+"' WHERE PropertyID='"+property.getPropertyID()+"';";
                     statement.execute(sql);
+                    
+                    sql = "Select Status from Property where PropertyID='"+property.getPropertyID()+"'";
+                    ResultSet rs2 = statement.executeQuery(sql);
+                    rs2.next();
+                    
+                    if(rs2.getString("Status")=="Available"){
+                        sql = "Update property set BuyerID='' where PropertyID='"+property.getPropertyID()+"'";
+                        statement.execute(sql);
+                        
+                        sql = "Select * from history where PropertyID='"+property.getPropertyID()+"' and OwnerID='"+user.getUsersID()+"' and EndTime='1900-01-01 00:00:00.000'";
+                        ResultSet rs = statement.executeQuery(sql);
+                        if(rs.next()){
+                            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                            Date date = new Date(); //2016/11/16 12:08:43
+
+                            sql = "Upadte History set EndDate='"+dateFormat.format(date)+"'";
+                            statement.execute(sql);
+                        }
+                    }
                 }
                     
                 else{

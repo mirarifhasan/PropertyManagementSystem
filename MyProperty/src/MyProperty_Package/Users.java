@@ -20,6 +20,7 @@ public class Users {
     private String email;
     private String password;
 
+    
     public Users() {
         this.usersID = -1;
         this.firstName = null;
@@ -28,6 +29,15 @@ public class Users {
         this.phone = null;
         this.email = null;
         this.password = null;
+    }
+
+    Users(int usersID, String fName, String lName, String phone, String email) {
+        
+        this.usersID = usersID;
+        this.firstName = fName;
+        this.lastName = lName;
+        this.phone = phone;
+        this.email = email;
     }
 
     public int getUsersID() {

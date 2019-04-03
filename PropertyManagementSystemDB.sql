@@ -71,8 +71,23 @@ CREATE TABLE BookRequest(
 );
 select * from BookRequest;
 
+
+CREATE TABLE History(
+	HistoryID int IDENTITY(10000,1) PRIMARY KEY,
+	OwnerID int NOT NULL FOREIGN KEY REFERENCES Users (UsersID),
+	BuyerID int NOT NULL FOREIGN KEY REFERENCES Users (UsersID),
+	PropertyID int NOT NULL FOREIGN KEY REFERENCES Property (PropertyID),
+	FromDate datetime NOT NULL,
+	EndDate datetime
+);
+select * from History;
+
+
 --Select * from Property where RentalPrice >= 100;
 --Select * from Property where Purpose='Rent'
+--Select * from Property where PropertyID='7001'
+
+--delete from property where propertyID='7001';
 
 --TrUncate TABLE Property
 --TrUncate TABLE client;

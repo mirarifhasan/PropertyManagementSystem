@@ -27,7 +27,7 @@ public class Profile extends javax.swing.JFrame {
         initComponents();
     }
     
-    Users user, buyer;
+    Users user, buyer, person;
     Property property;
     
     Profile(Users user) {
@@ -88,7 +88,7 @@ public class Profile extends javax.swing.JFrame {
             else if(list.get(i).getOwnerID()==user.getUsersID() && list.get(i).getBuyerID()>=3000) 
                 row[6] = "Buyed by someone";
             else
-                row[6] = "Offered";
+                row[6] = "I Offered";
             model.addRow(row);
         }
     }
@@ -318,8 +318,8 @@ public class Profile extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         int selectedRowIndex = jTable1.getSelectedRow();
         
-        boolean b=false;
-        int id = (int) model.getValueAt(selectedRowIndex, 0);
+        String relation = (String) model.getValueAt(selectedRowIndex, 6);
+        int property = (int) model.getValueAt(selectedRowIndex, 0);
         
         try {
             ConnectMSSQL obj = new ConnectMSSQL();
@@ -327,38 +327,35 @@ public class Profile extends javax.swing.JFrame {
             obj.connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=PropertyManagementSystemDB;selectMethod=cursor", "sa", "123456");
             Statement statement = obj.connection.createStatement();
 
-            String sql = "Select * from Property where PropertyID='"+id+"'";
+            String sql = "Select * from Property where PropertyID='"+property+"'";
             ResultSet rs = statement.executeQuery(sql);
             rs.next();
-            
-            if(rs.getInt("BuyerID")>30){
+        
+            if(!relation.equals("I Offered")){
+                String who = null;
                 
-                sql = "Select * from Users where UsersID='"+rs.getInt("BuyerID")+"'";
+                if(relation.equals("I Buyed")){
+                    sql = "Select * from Users where UsersID='"+rs.getInt("OwnerID")+"'";
+                    who = "Owner ";
+                }
+                else if(relation.equals("Buyed by someone")){
+                    sql = "Select * from Users where UsersID='"+rs.getInt("BuyerID")+"'";
+                    who = "Buyer ";
+                }
+                
                 ResultSet rs2 = statement.executeQuery(sql);
                 rs2.next();
-                
-                buyer.setUsersID(rs2.getInt("UsersID"));
-                buyer.setUsersID(rs2.getInt("UsersID"));
-                buyer.setFirstName(rs2.getString("FirstName"));
-                buyer.setLastName(rs2.getString("LastName"));
-                buyer.setEmail(rs2.getString("Email"));
-                buyer.setPhone(rs2.getString("Phone"));
-                
-                b = true;
-            }else{
-                b = false;
+
+                person = new Users(rs2.getInt("UsersID"), rs2.getString("FirstName"), rs2.getString("LastName"), rs2.getString("Phone"), rs2.getString("Email"));
+
+                new OwnerBuyerInfo(user, person, property, who).setVisible(true);
+                this.setVisible(false);
             }
-              
-        }catch(Exception e){System.out.println(e);System.out.println("hm");}
-        
-        if(b){
-            new BuyerInfo(user, buyer, id).setVisible(true);
-            this.setVisible(false);
-        }else{
-            new BuyerInfo(user, id).setVisible(true);
-            this.setVisible(false);
-        }
-                
+            else{
+                new OwnerBuyerInfo(user, property).setVisible(true);
+                this.setVisible(false);
+            }
+        }catch(Exception c){}
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**
