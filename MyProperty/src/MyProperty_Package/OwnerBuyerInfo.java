@@ -321,8 +321,7 @@ public class OwnerBuyerInfo extends javax.swing.JFrame {
                         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                         Date date = new Date();//2016/11/16 12:08:43
                         
-                        sql = "Insert into History values('"+user.getUsersID()+"', '"+buyerID+"', '"+pid+"', '"+dateFormat.format(date)+"', '')";
-                        System.out.println(sql);
+                        sql = "Insert into History values('"+user.getUsersID()+"', '"+buyerID+"', '"+pid+"', '"+dateFormat.format(date)+"', null, '0')";
                         statement.execute(sql);
                         
                         new Profile(user).setVisible(true);

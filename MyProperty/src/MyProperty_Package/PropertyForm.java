@@ -5,6 +5,8 @@
  */
 package MyProperty_Package;
 
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.awt.Image;
 import java.awt.List;
 import java.awt.image.BufferedImage;
@@ -637,17 +639,20 @@ public class PropertyForm extends javax.swing.JFrame {
                     ResultSet rs2 = statement.executeQuery(sql);
                     rs2.next();
                     
-                    if(rs2.getString("Status")=="Available"){
-                        sql = "Update property set BuyerID='' where PropertyID='"+property.getPropertyID()+"'";
+                    if(rs2.getString("Status").equals("Available")){
+                        sql = "Update Property set BuyerID=NULL where PropertyID='"+property.getPropertyID()+"'";
                         statement.execute(sql);
                         
-                        sql = "Select * from history where PropertyID='"+property.getPropertyID()+"' and OwnerID='"+user.getUsersID()+"' and EndTime='1900-01-01 00:00:00.000'";
+                        sql = "Select * from History where PropertyID='"+property.getPropertyID()+"' and Flag='0'";
                         ResultSet rs = statement.executeQuery(sql);
+                        
                         if(rs.next()){
-                            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                            Date date = new Date(); //2016/11/16 12:08:43
-
-                            sql = "Upadte History set EndDate='"+dateFormat.format(date)+"'";
+                            DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            Date date2 = new Date(); //2016/11/16 12:08:43
+                            System.out.println("getting end date");
+                            
+                            sql = "Update History set EndDate='"+dateFormat2.format(date2)+".000', Flag='1' where PropertyID='"+property.getPropertyID()+"' and Flag='0'";
+                            System.out.println(sql);
                             statement.execute(sql);
                         }
                     }
