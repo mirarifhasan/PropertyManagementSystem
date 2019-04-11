@@ -84,7 +84,6 @@ public class Login extends javax.swing.JFrame {
         EmailPhoneField.setBackground(new java.awt.Color(102, 102, 102));
         EmailPhoneField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         EmailPhoneField.setForeground(new java.awt.Color(255, 255, 255));
-        EmailPhoneField.setText("01996846517");
         EmailPhoneField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EmailPhoneFieldActionPerformed(evt);
@@ -96,7 +95,6 @@ public class Login extends javax.swing.JFrame {
         PasswordField.setBackground(new java.awt.Color(102, 102, 102));
         PasswordField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         PasswordField.setForeground(new java.awt.Color(255, 255, 255));
-        PasswordField.setText("1234");
         jPanel1.add(PasswordField);
         PasswordField.setBounds(450, 280, 230, 30);
 

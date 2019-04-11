@@ -96,6 +96,8 @@ select * from History;
 --delete from client where OwnerID='1001';
 --delete from Address where AddressID='2';
 --Drop table Property;
+select *  from BookRequest
+select *  from History
 
 Insert into BookRequest values ('3002', '3000', '7001');
 
